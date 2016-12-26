@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+enum Protocol {
+    ALLOCATE_WASHER = 800000; 
+}
+
+enum Order_Type {
+    NORMAL = 1;
+    PROFESSIONAL = 2;
+}
+
+enum Error_Code {
+    SUCCESS = 0;
+    ERROR_WASHER_NOT_FOUND = 800000; 
+}
+
+message Washer {
+    required string id        = 1;
+    required string phone     = 2;
+    optional float  longitude = 3;
+    optional float  latitude  = 4;
+    optional string nick      = 5;
+    optional float  level     = 6;
+    optional string avatar    = 7;
+    optional string address   = 8; 
+}
+
+message Allocate_Washer_Request {
+    required Order_Type order_type = 1;
+    required int32 city_code       = 2;
+    required float longitude       = 3;
+    required float latitude        = 4;
+}
+
+message Allocate_Washer_Response {
+    optional Washer washer = 1;
+    required Error_Code error_code = 2;
+}

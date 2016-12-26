@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from lib.washer import Washer
 
 WASHER_BIND_HOST = ''
 WASHER_BIND_PORT = 8888
@@ -15,11 +16,17 @@ AUTHCODE_MIN = 1000
 AUTHCODE_MAX = 9999
 AUTHCODE_EXPIRED_TIME = 600
 
+WASHER_INIT_LEVEL = 1
+
 MOD = {
     '11': 'member',
     '12': 'order',
     '13': 'washer',
-    '14': 'payment'
+    '14': 'payment',
+
+    '80': 'washer', #80开始为内部系统协议
+    '81': 'order',
 }
 
 mongo = MongoClient().hotelwasher
+AppServer = Washer.IWasher(APP_SERVER_HOST, APP_SERVER_PORT)

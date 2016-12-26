@@ -1,0 +1,44 @@
+syntax = "proto2";
+
+enum Protocol {
+    ALLOCATE_ORDER = 810000;
+}
+
+enum Order_Type {
+    NORMAL = 1;
+    PROFESSIONAL = 2;
+}
+
+enum Error_Code {
+    SUCCESS = 0;
+    ERROR_ALLOCATE_ORDER_FAILURE = 810000;
+}
+
+message Customer {
+    required string id        = 1;
+    required string phone     = 2;
+    optional string nick      = 3;
+    optional string avatar    = 4;
+    optional float  level     = 5;
+    optional string city_code = 6;
+    optional float  longitude = 7;
+    optional float  latitude  = 8;
+}
+
+message Allocate_Order_Request {
+    required string order_id       = 1;
+    required Order_Type order_type = 2;
+    required float quantity        = 3;
+    required Customer customer     = 4;
+}
+
+message Allocate_Order_Response {
+    optional string id        = 1;
+    optional string phone     = 2;
+    optional string nick      = 3;
+    optional string avatar    = 4;
+    optional float  level     = 5;
+    optional float  longitude = 6;
+    optional float  latitude  = 7;
+    required Error_Code error_code = 8;
+}
