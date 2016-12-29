@@ -6,6 +6,13 @@ enum Protocol {
     REQUEST_AUTHCODE = 130002; //请求验证码
     VERIFY_AUTHCODE  = 130003; //验证手机号
     FRESH_LOCATION   = 130004; //更新位置
+    START_WORK       = 130005; //开始接活
+    STOP_WORK        = 130006; //不干了
+}
+
+enum Washer_Type {
+    NORMAL = 1;
+    PROFESSIONAL = 2;
 }
 
 enum Error_Code {
@@ -20,7 +27,9 @@ enum Error_Code {
     ERROR_SIGNATURE_EXPIRED  = 130007; //签名过期
     ERROR_SIGNATURE_INVALID  = 130008; //签名错误
     ERROR_KICKOUT            = 130009; //踢下线 
-    ERROR_BADREQEUST         = 130010; //非法请求
+    ERROR_OPEN_FAILURE       = 130010; //开工失败
+    ERROR_ALREAD_START       = 130011; //已经开工了
+    ERROR_BADREQEUST         = 130100; //非法请求
 }
 
 message Washer {
@@ -33,8 +42,11 @@ message Washer {
     optional int32  last_login   = 7;
     optional int32  status       = 8;
     optional string secret       = 9;
+    optional int32  open         = 10;
+    optional int32  type         = 11;
 }
 
+//请求验证码
 message Request_Authcode_Request {
     required string phone = 1;
     required string signature = 2;
@@ -45,6 +57,7 @@ message Request_Authcode_Response {
     required Error_Code error_code = 2;
 }
 
+//注册
 message Register_Request {
     required string phone     = 1;
     required int32  authcode  = 2;
@@ -52,7 +65,8 @@ message Register_Request {
     required string password2 = 4;
     required string nick      = 5;
     required string signature = 6;
-    optional string avatar    = 7;
+    required Washer_Type type = 7;
+    optional string avatar    = 8;
 }
 
 message Register_Response {
@@ -60,6 +74,7 @@ message Register_Response {
     required Error_Code error_code = 2;
 }
 
+//登录
 message Login_Request {
     required string phone     = 1;
     optional string password  = 2;
@@ -72,6 +87,7 @@ message Login_Response {
     required Error_Code error_code = 3;
 }
 
+//验证码校验
 message Verify_Authcode_Request {
     required string phone     = 1;
     required int32  authcode  = 2;
@@ -82,6 +98,7 @@ message Verify_Authcode_Response {
     required Error_Code error_code = 1;
 }
 
+//更新地理位置
 message Fresh_Location_Request {
     required int32  city_code = 1; 
     required float  longitude = 2;
@@ -90,5 +107,34 @@ message Fresh_Location_Request {
 
 message Fresh_Location_Response {
     required Error_Code error_code = 1;
+}
+
+//开工
+message Start_Work_Request {
+    required int32 city_code = 1;
+    required float longitude = 2;
+    required float latitude  = 3;
+}
+
+message Start_Work_Response {
+    required Error_Code error_code = 1;
+}
+
+//收工
+message Stop_Work_Request {
+
+}
+
+message Stop_Work_Response {
+    required Error_Code error_code = 1;
+}
+
+//登出
+message Logout_Request {
+
+}
+
+message Logout_Response {
+
 }
 

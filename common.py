@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from lib.washer import Washer
+import redis
 
 WASHER_BIND_HOST = ''
 WASHER_BIND_PORT = 8888
@@ -17,6 +18,7 @@ AUTHCODE_MAX = 9999
 AUTHCODE_EXPIRED_TIME = 600
 
 WASHER_INIT_LEVEL = 1
+MAX_ORDERS = 1
 
 MOD = {
     '11': 'member',
@@ -28,5 +30,6 @@ MOD = {
     '81': 'order',
 }
 
+redis = redis.StrictRedis()
 mongo = MongoClient().hotelwasher
 AppServer = Washer.IWasher(APP_SERVER_HOST, APP_SERVER_PORT)

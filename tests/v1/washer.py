@@ -7,7 +7,7 @@ import socket
 import inspect
 import common
 
-WASHER_PHONE = '+8618565389757'
+WASHER_PHONE = '+8613533332421'
 
 def fresh_location(socket):
     pb = washer_pb2.Fresh_Location_Request()
@@ -85,6 +85,7 @@ def register(socket):
     pb.password2 = 'iwasher'
     pb.nick = 'iwasher'
     pb.signature = 'signature'
+    pb.type = washer_pb2.NORMAL
     common.send(socket, washer_pb2.REGISTER, pb)
     body = common.get(socket)
     if body:
@@ -98,15 +99,35 @@ def login(socket):
     washer.phone = WASHER_PHONE
     washer.password = 'iwasher'
     washer.signature = 'signature'
+    #washer.city_code = 179
+    #washer.longitude = 120.025806
+    #washer.latitude  = 30.246185
     common.send(socket, washer_pb2.LOGIN, washer)
     body = common.get(socket)
     if body:
         washerResponse = washer_pb2.Login_Response()
         washerResponse.ParseFromString(body)
         print(washerResponse)
-        return
+        return True
     print('login failure')
     
+def start_work(socket):
+    result = login(socket)
+    if result is None:
+        print('login first')
+        return
+    request = washer_pb2.Start_Work_Request()
+    request.city_code = 179
+    request.longitude = 120.025806
+    request.latitude  = 30.246185
+    common.send(socket, washer_pb2.START_WORK, request)
+    body = common.get(socket)
+    if body:
+        response = washer_pb2.Start_Work_Response()
+        response.ParseFromString(body)
+        print(response)
+        return
+    print('start work failure')
 
 if __name__ == '__main__':
     filepath = os.path.realpath(__file__)

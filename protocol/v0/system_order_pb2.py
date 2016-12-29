@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='system_order.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\x12system_order.proto\"\x8a\x01\n\x08\x43ustomer\x12\n\n\x02id\x18\x01 \x02(\t\x12\r\n\x05phone\x18\x02 \x02(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x11\n\tcity_code\x18\x06 \x01(\t\x12\x11\n\tlongitude\x18\x07 \x01(\x02\x12\x10\n\x08latitude\x18\x08 \x01(\x02\"z\n\x16\x41llocate_Order_Request\x12\x10\n\x08order_id\x18\x01 \x02(\t\x12\x1f\n\norder_type\x18\x02 \x02(\x0e\x32\x0b.Order_Type\x12\x10\n\x08quantity\x18\x03 \x02(\x02\x12\x1b\n\x08\x63ustomer\x18\x04 \x02(\x0b\x32\t.Customer\"\xa7\x01\n\x17\x41llocate_Order_Response\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x11\n\tlongitude\x18\x06 \x01(\x02\x12\x10\n\x08latitude\x18\x07 \x01(\x02\x12\x1f\n\nerror_code\x18\x08 \x02(\x0e\x32\x0b.Error_Code* \n\x08Protocol\x12\x14\n\x0e\x41LLOCATE_ORDER\x10\x90\xb8\x31**\n\nOrder_Type\x12\n\n\x06NORMAL\x10\x01\x12\x10\n\x0cPROFESSIONAL\x10\x02*=\n\nError_Code\x12\x0b\n\x07SUCCESS\x10\x00\x12\"\n\x1c\x45RROR_ALLOCATE_ORDER_FAILURE\x10\x90\xb8\x31')
+  serialized_pb=_b('\n\x12system_order.proto\"\x8a\x01\n\x08\x43ustomer\x12\n\n\x02id\x18\x01 \x02(\t\x12\r\n\x05phone\x18\x02 \x02(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x11\n\tcity_code\x18\x06 \x01(\x05\x12\x11\n\tlongitude\x18\x07 \x01(\x02\x12\x10\n\x08latitude\x18\x08 \x01(\x02\"z\n\x16\x41llocate_Order_Request\x12\x10\n\x08order_id\x18\x01 \x02(\t\x12\x1f\n\norder_type\x18\x02 \x02(\x0e\x32\x0b.Order_Type\x12\x10\n\x08quantity\x18\x03 \x02(\x02\x12\x1b\n\x08\x63ustomer\x18\x04 \x02(\x0b\x32\t.Customer\"\xa7\x01\n\x17\x41llocate_Order_Response\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x11\n\tlongitude\x18\x06 \x01(\x02\x12\x10\n\x08latitude\x18\x07 \x01(\x02\x12\x1f\n\nerror_code\x18\x08 \x02(\x0e\x32\x0b.Error_Code\".\n\x14Order_Pickup_Request\x12\x16\n\x0e\x63ustomer_phone\x18\x01 \x02(\t* \n\x08Protocol\x12\x14\n\x0e\x41LLOCATE_ORDER\x10\x90\xb8\x31**\n\nOrder_Type\x12\n\n\x06NORMAL\x10\x01\x12\x10\n\x0cPROFESSIONAL\x10\x02*T\n\x0cOrder_Status\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\x0f\n\x0b\x44ISTRIBUTED\x10\x01\x12\r\n\tDELIVERED\x10\x02\x12\t\n\x05PAYED\x10\x03\x12\x0c\n\x08\x43\x41NCELED\x10\x04*[\n\nError_Code\x12\x0b\n\x07SUCCESS\x10\x00\x12\"\n\x1c\x45RROR_ALLOCATE_ORDER_FAILURE\x10\x90\xb8\x31\x12\x1c\n\x16\x45RROR_WASHER_NOT_FOUND\x10\x91\xb8\x31')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -37,8 +37,8 @@ _PROTOCOL = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=457,
-  serialized_end=489,
+  serialized_start=505,
+  serialized_end=537,
 )
 _sym_db.RegisterEnumDescriptor(_PROTOCOL)
 
@@ -60,12 +60,47 @@ _ORDER_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=491,
-  serialized_end=533,
+  serialized_start=539,
+  serialized_end=581,
 )
 _sym_db.RegisterEnumDescriptor(_ORDER_TYPE)
 
 Order_Type = enum_type_wrapper.EnumTypeWrapper(_ORDER_TYPE)
+_ORDER_STATUS = _descriptor.EnumDescriptor(
+  name='Order_Status',
+  full_name='Order_Status',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='DEFAULT', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='DISTRIBUTED', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='DELIVERED', index=2, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAYED', index=3, number=3,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CANCELED', index=4, number=4,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=583,
+  serialized_end=667,
+)
+_sym_db.RegisterEnumDescriptor(_ORDER_STATUS)
+
+Order_Status = enum_type_wrapper.EnumTypeWrapper(_ORDER_STATUS)
 _ERROR_CODE = _descriptor.EnumDescriptor(
   name='Error_Code',
   full_name='Error_Code',
@@ -80,11 +115,15 @@ _ERROR_CODE = _descriptor.EnumDescriptor(
       name='ERROR_ALLOCATE_ORDER_FAILURE', index=1, number=810000,
       options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ERROR_WASHER_NOT_FOUND', index=2, number=810001,
+      options=None,
+      type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=535,
-  serialized_end=596,
+  serialized_start=669,
+  serialized_end=760,
 )
 _sym_db.RegisterEnumDescriptor(_ERROR_CODE)
 
@@ -92,8 +131,14 @@ Error_Code = enum_type_wrapper.EnumTypeWrapper(_ERROR_CODE)
 ALLOCATE_ORDER = 810000
 NORMAL = 1
 PROFESSIONAL = 2
+DEFAULT = 0
+DISTRIBUTED = 1
+DELIVERED = 2
+PAYED = 3
+CANCELED = 4
 SUCCESS = 0
 ERROR_ALLOCATE_ORDER_FAILURE = 810000
+ERROR_WASHER_NOT_FOUND = 810001
 
 
 
@@ -141,8 +186,8 @@ _CUSTOMER = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='city_code', full_name='Customer.city_code', index=5,
-      number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      number=6, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -308,14 +353,47 @@ _ALLOCATE_ORDER_RESPONSE = _descriptor.Descriptor(
   serialized_end=455,
 )
 
+
+_ORDER_PICKUP_REQUEST = _descriptor.Descriptor(
+  name='Order_Pickup_Request',
+  full_name='Order_Pickup_Request',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='customer_phone', full_name='Order_Pickup_Request.customer_phone', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=457,
+  serialized_end=503,
+)
+
 _ALLOCATE_ORDER_REQUEST.fields_by_name['order_type'].enum_type = _ORDER_TYPE
 _ALLOCATE_ORDER_REQUEST.fields_by_name['customer'].message_type = _CUSTOMER
 _ALLOCATE_ORDER_RESPONSE.fields_by_name['error_code'].enum_type = _ERROR_CODE
 DESCRIPTOR.message_types_by_name['Customer'] = _CUSTOMER
 DESCRIPTOR.message_types_by_name['Allocate_Order_Request'] = _ALLOCATE_ORDER_REQUEST
 DESCRIPTOR.message_types_by_name['Allocate_Order_Response'] = _ALLOCATE_ORDER_RESPONSE
+DESCRIPTOR.message_types_by_name['Order_Pickup_Request'] = _ORDER_PICKUP_REQUEST
 DESCRIPTOR.enum_types_by_name['Protocol'] = _PROTOCOL
 DESCRIPTOR.enum_types_by_name['Order_Type'] = _ORDER_TYPE
+DESCRIPTOR.enum_types_by_name['Order_Status'] = _ORDER_STATUS
 DESCRIPTOR.enum_types_by_name['Error_Code'] = _ERROR_CODE
 
 Customer = _reflection.GeneratedProtocolMessageType('Customer', (_message.Message,), dict(
@@ -338,6 +416,13 @@ Allocate_Order_Response = _reflection.GeneratedProtocolMessageType('Allocate_Ord
   # @@protoc_insertion_point(class_scope:Allocate_Order_Response)
   ))
 _sym_db.RegisterMessage(Allocate_Order_Response)
+
+Order_Pickup_Request = _reflection.GeneratedProtocolMessageType('Order_Pickup_Request', (_message.Message,), dict(
+  DESCRIPTOR = _ORDER_PICKUP_REQUEST,
+  __module__ = 'system_order_pb2'
+  # @@protoc_insertion_point(class_scope:Order_Pickup_Request)
+  ))
+_sym_db.RegisterMessage(Order_Pickup_Request)
 
 
 # @@protoc_insertion_point(module_scope)
