@@ -4,7 +4,8 @@
 import sys
 import time
 
-from protocol.v0 import system_order_pb2
+import system_common_pb2
+import system_order_pb2
 from .protocol import route
 from helper import helper
 from model.order.order import Order
@@ -26,7 +27,7 @@ def allocate_order(socket, platform, data):
     request.ParseFromString(data)
 
     order_id           = request.order_id
-    order_type         = request.order_type
+    washer_type        = request.washer_type
     quantity           = request.quantity
     customer_id        = request.customer.id
     customer_phone     = request.customer.phone
@@ -37,8 +38,8 @@ def allocate_order(socket, platform, data):
     customer_longitude = request.customer.longitude
     customer_latitude  = request.customer.latitude
     
-    print("customer_city_code:{}, customer_longitude:{}, customer_latitude:{}, order_type:{}".format(customer_city_code, customer_longitude, customer_latitude, order_type))
-    washer = Washer.allocate_washer(customer_city_code, customer_longitude, customer_latitude, order_type)
+    print("customer_city_code:{}, customer_longitude:{}, customer_latitude:{}, washer_type:{}, quantity:{}".format(customer_city_code, customer_longitude, customer_latitude, washer_type, quantity))
+    washer = Washer.allocate_washer(customer_city_code, customer_longitude, customer_latitude, washer_type)
     """
     washer = {
         "id": '1234567890',
@@ -52,8 +53,8 @@ def allocate_order(socket, platform, data):
     """
     response = system_order_pb2.Allocate_Order_Response()
     if washer is None:
-        response.error_code = system_order_pb2.ERROR_WASHER_NOT_FOUND
-        helper.system_response(socket, system_order_pb2.ALLOCATE_ORDER, response)
+        response.error_code = system_common_pb2.ERROR_WASHER_NOT_FOUND
+        helper.system_response(socket, system_common_pb2.ALLOCATE_ORDER, response)
         return
 
     filter = {"_id":ObjectId(order_id)}
@@ -61,15 +62,15 @@ def allocate_order(socket, platform, data):
         "$set":{
             "washer_phone":washer['phone'], 
             "washer_nick":washer['nick'],
-            "status": system_order_pb2.DISTRIBUTED,
+            "status": system_common_pb2.DISTRIBUTED,
             "allocate_time": int(time.time())
             }
     }
     result = Order.update_one(filter, update)
      
     if not result.modified_count:
-        response.error_code = system_order_pb2.ERROR_ALLOCATE_WASHER_FAILURE
-        helper.system_response(socket, system_order_pb2.ALLOCATE_ORDER, response)
+        response.error_code = system_common_pb2.ERROR_ALLOCATE_WASHER_FAILURE
+        helper.system_response(socket, system_common_pb2.ALLOCATE_ORDER, response)
         return
     
     response.id = washer['id']
@@ -79,12 +80,12 @@ def allocate_order(socket, platform, data):
     response.level  = washer['level']
     response.longitude = washer['longitude']
     response.latitude  = washer['latitude']
-    response.error_code = system_order_pb2.SUCCESS
+    response.error_code = system_common_pb2.SUCCESS
     
-    helper.system_response(socket, system_order_pb2.ALLOCATE_ORDER, response)
+    helper.system_response(socket, system_common_pb2.ALLOCATE_ORDER, response)
 
     #通知商家有人下单
-    response = order_pb2.Allocate_Order_Push()
+    response = system_order_pb2.Allocate_Order_Push()
     response.customer.id = customer_id
     response.customer.phone = customer_phone
     response.customer.nick  = customer_nick
@@ -94,8 +95,9 @@ def allocate_order(socket, platform, data):
     response.customer.latitude = customer_latitude
     response.order_id = order_id
     response.quantity = quantity
-    response.error_code = order_pb2.SUCCESS
-    helper.client_send(washer['socket'], order_pb2.ALLOCATE_ORDER, response)
+    print("response.quantity:{}".format(quantity))
+    response.error_code = system_common_pb2.SUCCESS
+    helper.client_send(washer['socket'], system_common_pb2.WASHER_ALLOCATE_ORDER, response)
 
 #用户取消订单
 def cancel_order(socket, platform, data):

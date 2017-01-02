@@ -28,7 +28,6 @@ class Washer(object):
     def add_online_washer(cls, socket, data):
         cls._online_washer[socket] = data 
         cls._washer_map[data['phone']] = socket
-        print(cls._washer_map)
 
     @classmethod
     def get_online_washer(cls, socket):
@@ -47,6 +46,7 @@ class Washer(object):
     @classmethod
     def in_workgroup(cls, city_code, longitude, latitude, phone, washer_type):
         key = str(city_code) + '-' + str(washer_type)
+        print("in_workgroup key:{}".format(key))
         exploder = ' '
         cmd = ['GEOADD']
         cmd.append(key)
@@ -71,8 +71,8 @@ class Washer(object):
             return False
 
     @classmethod
-    def allocate_washer(cls, city_code, longitude, latitude, order_type):
-        key = str(city_code) + '-' + str(order_type);
+    def allocate_washer(cls, city_code, longitude, latitude, washer_type):
+        key = str(city_code) + '-' + str(washer_type);
         exploder = ' '
         cmd = ['GEORADIUS']
         cmd.append(key)
@@ -84,10 +84,12 @@ class Washer(object):
         washers = redis.execute_command(cmd)
 
         if washers is None:
+            print("can not find any avalid washer in redis")
             return 
 
         size = len(washers)
         if not size:
+            print("the washers length is zero")
             return
 
         index     = random.randint(0, size-1)
@@ -109,7 +111,8 @@ class Washer(object):
             "level": washer['level'],
             "longitude": longitude,
             "latitude": latitude,
-            "distance": distance
+            "distance": distance,
+            "socket": washer['socket']
         }
         #是否达到允许接单数，达到则从服务组中剃除，不再给此商家分配订单
         if (washer['orders'] + 1) >= MAX_ORDERS:
@@ -136,12 +139,3 @@ class Mix(object):
     def update_one(filter, update, upsert=False, bypass_document_validation=False):
         return mongo.washer_mix.update_one(filter, update, upsert, bypass_document_validation)
 
-class Online(object):
-    @staticmethod
-    def update_one(filter, update, upsert=False, bypass_document_validation=False):
-        return mongo.washer_online.update_one(filter, update, upsert, bypass_document_validation)
-
-    @staticmethod
-    def delete_one(filter, collation=None):
-        return mongo.washer_online.delete_one(filter, collation)
-    

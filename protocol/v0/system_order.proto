@@ -1,44 +1,11 @@
 syntax = "proto2";
-
-enum Protocol {
-    ALLOCATE_ORDER = 810000;
-}
-
-enum Washer_Type {
-    NORMAL = 1;
-    PROFESSIONAL = 2;
-}
-
-enum Order_Status {
-    DEFAULT     = 0; //未分配
-    DISTRIBUTED = 1; //已派发
-    FINISH      = 2; //已完成
-    PAYED       = 3; //已支付
-    CANCELED    = 4; //已取消
-}
-
-enum Error_Code {
-    SUCCESS = 0;
-    ERROR_ALLOCATE_ORDER_FAILURE = 810000;
-    ERROR_WASHER_NOT_FOUND = 810001;
-}
-
-message Customer {
-    required string id        = 1;
-    required string phone     = 2;
-    optional string nick      = 3;
-    optional string avatar    = 4;
-    optional float  level     = 5;
-    optional int32  city_code = 6;
-    optional float  longitude = 7;
-    optional float  latitude  = 8;
-}
+import "system_common.proto";
 
 message Allocate_Order_Request {
-    required string order_id       = 1;
+    required string order_id         = 1;
     required Washer_Type washer_type = 2;
-    required float quantity        = 3;
-    required Customer customer     = 4;
+    required int32 quantity          = 3;
+    required Customer customer       = 4;
 }
 
 message Allocate_Order_Response {
@@ -57,9 +24,10 @@ message Order_Finish_Request {
     required string customer_phone = 1;
 }
 
+//通知商家有人下单
 message Allocate_Order_Push {
-    required Customer customer = 1;
-    required string order_id = 2;
-    required int32 quantity = 3;
+    required Customer customer     = 1;
+    required string order_id       = 2;
+    required int32 quantity        = 3;
     required Error_Code error_code = 4;
 }

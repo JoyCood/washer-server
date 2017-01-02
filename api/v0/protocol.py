@@ -1,5 +1,5 @@
-from protocol.v0 import (system_order_pb2)
+import system_common_pb2
 
 route = {
-    system_order_pb2.ALLOCATE_ORDER: "allocate_order"
+    system_common_pb2.ALLOCATE_ORDER: "allocate_order"
 }

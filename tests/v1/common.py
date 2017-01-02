@@ -24,7 +24,7 @@ def get(sock):
             (body_len, protocol, num) = struct.unpack('>3I', header)
             if body_len:
                 body = sock.recv(body_len)
-                return body
+                return (protocol, body)
         return False
     except socket.error:
         return False

@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+enum System_Protocol {
+    ALLOCATE_ORDER = 810000;
+}
+
+enum Client_Protocol {
+    WASHER_ALLOCATE_ORDER = 120002;
+}
+
+enum Washer_Type {
+    PERSONAL = 1;
+    COMPANY  = 2;
+}
+
+enum Order_Status {
+    DEFAULT     = 0; //未分配
+    DISTRIBUTED = 1; //已派发
+    FINISH      = 2; //已完成
+    PAYED       = 3; //已支付
+    CANCELED    = 4; //已取消
+}
+
+enum Error_Code {
+    SUCCESS = 0;
+    ERROR_WASHER_NOT_FOUND = 810000;
+}
+
+message Customer {
+    optional string id        = 1;
+    optional string phone     = 2;
+    optional string nick      = 3;
+    optional string avatar    = 4;
+    optional float  level     = 5;
+    optional int32  city_code = 6;
+    optional float  longitude = 7;
+    optional float  latitude  = 8;
+}

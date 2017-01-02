@@ -1,16 +1,16 @@
 syntax = "proto2";
 
 enum Protocol {
-    FINISH_ORDER       = 120000;
-    CANCEL_ORDER       = 120001;
-    ALLOCATE_ORDER     = 120002;
-    REGISTER           = 130000;
-    LOGIN              = 130001;
-    REQUEST_AUTHCODE   = 130002;
-    VERIFY_AUTHCODE    = 130003;
-    START_WORK         = 130004;  
-    FRESH_LOCATION     = 130005;
-    STOP_WORK          = 130006;
+    FINISH_ORDER       = 120000; //清洗完毕，完成订单
+    CANCEL_ORDER       = 120001; //取消订单
+    ALLOCATE_ORDER     = 120002; //分配订单(当有用户下单时，系统分配商家并推送给所分配的商家)
+    REGISTER           = 130000; //注册
+    LOGIN              = 130001; //登录及断线重连
+    REQUEST_AUTHCODE   = 130002; //请求验证码
+    VERIFY_AUTHCODE    = 130003; //校验验证码
+    START_WORK         = 130004; //开工(只有开工了才可接单) 
+    FRESH_LOCATION     = 130005; //更新地理位置
+    STOP_WORK          = 130006; //不干了(停止接单)
 }
 
 enum Error_Code {
@@ -31,14 +31,14 @@ enum Error_Code {
 }
 
 enum Washer_Type {
-    PERSONAL = 1;
-    COMPANY  = 2;
+    PERSONAL = 1; //个人
+    COMPANY  = 2; //企业
 }
 
 enum Category {
-    CLOTHES_NORMAL = 1;
-    CLOTHES_JACKET = 2;
-    SHOSE_NORMAL   = 3;
+    CLOTHES_NORMAL = 1; //衬衫
+    CLOTHES_JACKET = 2; //夹克
+    SHOSE_NORMAL   = 3; //鞋子
 }
 
 enum Order_Status {
@@ -50,29 +50,29 @@ enum Order_Status {
 }
 
 message Customer {
-    optional string id        = 1;
-    optional string phone     = 2;
-    optional string nick      = 3;
-    optional string avatar    = 4;
-    optional float  level     = 5;
-    optional int32  city_code = 6;
-    optional float  longitude = 7;
-    optional float  latitude  = 8;
+    optional string id        = 1; //用户id
+    optional string phone     = 2; //手机号
+    optional string nick      = 3; //昵称
+    optional string avatar    = 4; //头像
+    optional float  level     = 5; //平均分
+    optional int32  city_code = 6; //城市码
+    optional float  longitude = 7; //经度
+    optional float  latitude  = 8; //纬度
 }
 
 message Washer {
-    optional string id           = 1;
-    optional string phone        = 2;
-    optional string nick         = 3;
-    optional string avatar       = 4;
-    optional float  level        = 5;
-    optional int32  reg_time     = 6;
-    optional int32  last_login   = 7;
-    optional int32  status       = 8;
-    optional float  distance     = 9;
-    optional float  longitude    = 10;
-    optional float  latitude     = 11;
-    optional string secret       = 12; 
-    optional bool   open         = 13;
-    optional Washer_Type washer_type = 14; 
+    optional string id           = 1;  //商家id
+    optional string phone        = 2;  //手机号
+    optional string nick         = 3;  //昵称
+    optional string avatar       = 4;  //头像
+    optional float  level        = 5;  //平均分
+    optional int32  reg_time     = 6;  //注册时间
+    optional int32  last_login   = 7;  //最后登录时间
+    optional int32  status       = 8;  //状态
+    optional float  distance     = 9;  //离下单客户的距离有多远
+    optional float  longitude    = 10; //经度
+    optional float  latitude     = 11; //纬度
+    optional string secret       = 12; //密钥
+    optional bool   open         = 13; //是否处于开工状态(1开工 0收工)
+    optional Washer_Type washer_type = 14; //商家类型 
 }

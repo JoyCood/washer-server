@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='order_1.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\rorder_1.proto\x1a\x0e\x63ommon_1.proto\"(\n\x14Order_Finish_Request\x12\x10\n\x08order_id\x18\x01 \x02(\t\"8\n\x15Order_Finish_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"(\n\x14Order_Cancel_Request\x12\x10\n\x08order_id\x18\x01 \x02(\t\"8\n\x15Order_Cancel_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"w\n\x13\x41llocate_Order_Push\x12\x1b\n\x08\x63ustomer\x18\x01 \x02(\x0b\x32\t.Customer\x12\x10\n\x08order_id\x18\x02 \x02(\t\x12\x10\n\x08quantity\x18\x03 \x02(\t\x12\x1f\n\nerror_code\x18\x04 \x02(\x0e\x32\x0b.Error_Code')
+  serialized_pb=_b('\n\rorder_1.proto\x1a\x0e\x63ommon_1.proto\"(\n\x14Order_Finish_Request\x12\x10\n\x08order_id\x18\x01 \x02(\t\"8\n\x15Order_Finish_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"(\n\x14Order_Cancel_Request\x12\x10\n\x08order_id\x18\x01 \x02(\t\"8\n\x15Order_Cancel_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"w\n\x13\x41llocate_Order_Push\x12\x1b\n\x08\x63ustomer\x18\x01 \x02(\x0b\x32\t.Customer\x12\x10\n\x08order_id\x18\x02 \x02(\t\x12\x10\n\x08quantity\x18\x03 \x02(\x05\x12\x1f\n\nerror_code\x18\x04 \x02(\x0e\x32\x0b.Error_Code')
   ,
   dependencies=[common__1__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -175,8 +175,8 @@ _ALLOCATE_ORDER_PUSH = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='quantity', full_name='Allocate_Order_Push.quantity', index=2,
-      number=3, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      number=3, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),

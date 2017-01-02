@@ -19,9 +19,10 @@ message Order_Cancel_Response {
     required Error_Code error_code = 1;
 }
 
+//推送订单给商家
 message Allocate_Order_Push {
     required Customer customer = 1;
     required string order_id   = 2;
-    required string quantity   = 3;    
+    required int32 quantity   = 3;    
     required Error_Code error_code = 4;
 }

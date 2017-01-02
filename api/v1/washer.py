@@ -37,8 +37,8 @@ def login(socket, platform, data):
 
     if not helper.verify_phone(phone):
         print('phone invalid.')
-        response.error_code = washer_pb2.ERROR_PHONE_INVALID
-        helper.client_send(socket, platform, washer_pb2.LOGIN, response)
+        response.error_code = common_pb2.ERROR_PHONE_INVALID
+        helper.client_send(socket, platform, common_pb2.LOGIN, response)
         return
     
     if password:
@@ -50,8 +50,8 @@ def login(socket, platform, data):
         return
 
     print('bad request.')
-    response.error_code = washer_pb2.ERROR_BADREQEUST
-    helper.client_send(socket, washer_pb2.LOGIN, response)
+    response.error_code = common_pb2.ERROR_BADREQEUST
+    helper.client_send(socket, common_pb2.LOGIN, response)
 
 #密码登录
 def _login(socket, phone, password):
@@ -67,13 +67,13 @@ def _login(socket, phone, password):
     washer = Washer.find_one(filter)
 
     if washer is None:
-        response.error_code = washer_pb2.ERROR_WASHER_NOT_FOUND
-        helper.client_send(socket, washer_pb2.LOGIN, response)
+        response.error_code = common_pb2.ERROR_WASHER_NOT_FOUND
+        helper.client_send(socket, common_pb2.LOGIN, response)
         print('washer:{} not found.'.format(phone))
         return
     elif washer['password'] != password:
-        response.error_code = washer_pb2.ERROR_PASSWORD_INVALID
-        helper.client_send(socket, washer_pb2.LOGIN, response)
+        response.error_code = common_pb2.ERROR_PASSWORD_INVALID
+        helper.client_send(socket, common_pb2.LOGIN, response)
         print('password invalid.')
         return
     print('login success')
@@ -113,16 +113,16 @@ def _reconnect(socket, phone, uuid, signature, city_code, longitude, latitude):
     result = verify_signature(phone, uuid, signature)
 
     if not result:
-        response.error_code = washer_pb2.ERROR_BADREQUEST
-        helper.client_send(socket, washer_pb2.LOGIN, response)
+        response.error_code = common_pb2.ERROR_BADREQUEST
+        helper.client_send(socket, common_pb2.LOGIN, response)
         return
 
     filter = {"phone":phone}
     washer = Washer.find_one(filter)
     if washer is None: #找不到商家
         print('washer not found.')
-        response.error_code = washer_pb2.ERROR_WASHER_NOT_FOUND
-        helper.client_send(socket, washer_pb2.LOGIN, response)
+        response.error_code = common_pb2.ERROR_WASHER_NOT_FOUND
+        helper.client_send(socket, common_pb2.LOGIN, response)
         return
     
     _washer['socket'] = socket
@@ -136,7 +136,7 @@ def _reconnect(socket, phone, uuid, signature, city_code, longitude, latitude):
     response.level  = washer['level']
     response.status = washer['status']
     response.secret = result['secret']
-    helper.client_send(socket, washer_pb2.LOGIN, response)
+    helper.client_send(socket, common_pb2.LOGIN, response)
 
 #注册
 def register(socket, platform, data):
@@ -154,13 +154,13 @@ def register(socket, platform, data):
     response = washer_pb2.Register_Response()
 
     if password != password2:
-        response.error_code = washer_pb2.ERROR_PASSWORD_NOT_EQUAL
-        helper.client_send(socket, washer_pb2.REGISTER, response)
+        response.error_code = common_pb2.ERROR_PASSWORD_NOT_EQUAL
+        helper.client_send(socket, common_pb2.REGISTER, response)
         print('password not equal')
         return
     elif not helper.verify_phone(phone):
-        response.error_code = washer_pb2.ERROR_PHONE_INVALID
-        helper.client_send(socket, washer_pb2.REGISTER, response)
+        response.error_code = common_pb2.ERROR_PHONE_INVALID
+        helper.client_send(socket, common_pb2.REGISTER, response)
         print('phone invalid')
         return
 
@@ -172,18 +172,18 @@ def register(socket, platform, data):
 
     if washer is not None:
         print('washer:{} exist.'.format(phone))
-        response.error_code = washer_pb2.ERROR_WASHER_EXIST
-        helper.client_send(socket, washer_pb2.REGISTER, response)
+        response.error_code = common_pb2.ERROR_WASHER_EXIST
+        helper.client_send(socket, common_pb2.REGISTER, response)
         return
     elif washer_mix is None or washer_mix['authcode'] != authcode:
         print('authcode:{} invalid'.format(authcode))
-        response.error_code = washer_pb2.ERROR_AUTHCODE_INVALID
-        helper.client_send(socket, washer_pb2.REGISTER, response)
+        response.error_code = common_pb2.ERROR_AUTHCODE_INVALID
+        helper.client_send(socket, common_pb2.REGISTER, response)
         return
     elif washer_mix['expired'] < now:
         print('autchode expired.')
-        response.error_code = washer_pb2.ERROR_AUTHCODE_EXPIRED
-        helper.client_send(socket, washer_pb2.REGISTER, response)
+        response.error_code = common_pb2.ERROR_AUTHCODE_EXPIRED
+        helper.client_send(socket, common_pb2.REGISTER, response)
         return
 
     md5 = hashlib.md5()
@@ -214,13 +214,13 @@ def register(socket, platform, data):
         response.washer.level  = common.WASHER_INIT_LEVEL
         response.washer.status = 0
         response.washer.avatar = avatar
-        response.washer.type   = washer_pb2.NORMAL
-        response.error_code = washer_pb2.SUCCESS
-        helper.client_send(socket, washer_pb2.REGISTER, response)
+        response.washer.type   = common_pb2.PERSONAL
+        response.error_code = common_pb2.SUCCESS
+        helper.client_send(socket, common_pb2.REGISTER, response)
         print('register success')
     except DuplicateKeyError:
-        response.error_code = washer_pb2.ERROR_WASHER_EXIST
-        helper.client_send(socket, washer_pb2.REGISTER, response)
+        response.error_code = common_pb2.ERROR_WASHER_EXIST
+        helper.client_send(socket, common_pb2.REGISTER, response)
         print('duplicate key error, washer exist')
 
 #发送验证码
@@ -235,8 +235,8 @@ def request_authcode(socket, platform, data):
 
     if not helper.verify_phone(phone):
         print("phone:{} invalid".format(phone))
-        response.error_code = washer_pb2.ERROR_PHONE_INVALID
-        helper.client_send(socket, washer_pb2.REQUEST_AUTHCODE, response)
+        response.error_code = common_pb2.ERROR_PHONE_INVALID
+        helper.client_send(socket, common_pb2.REQUEST_AUTHCODE, response)
         return
 
     filter = {"phone": phone}
@@ -273,8 +273,8 @@ def request_authcode(socket, platform, data):
     print('request authcode success')
     authcode = authcode or washer_mix['authcode']
     response.authcode = authcode
-    response.error_code = washer_pb2.SUCCESS
-    helper.client_send(socket, washer_pb2.REQUEST_AUTHCODE, response)
+    response.error_code = common_pb2.SUCCESS
+    helper.client_send(socket, common_pb2.REQUEST_AUTHCODE, response)
 
 #校验验证码
 def verify_authcode(socket, platform, data):
@@ -289,8 +289,8 @@ def verify_authcode(socket, platform, data):
 
     if not helper.verify_phone(phone):
         print('phone:{} invalid'.format(phone))
-        response.error_code = washer_pb2.ERROR_PHONE_INVALID
-        helper.client_send(socket, washer_pb2.VERIFY_AUTHCODE, response)
+        response.error_code = common_pb2.ERROR_PHONE_INVALID
+        helper.client_send(socket, common_pb2.VERIFY_AUTHCODE, response)
         return
 
     filter = {"phone": phone}
@@ -298,18 +298,18 @@ def verify_authcode(socket, platform, data):
 
     if washer_mix is None or washer_mix['authcode'] != authcode:
         print('authcode invalid')
-        response.error_code = washer_pb2.ERROR_AUTHCODE_INVALID
-        helper.client_send(socket, washer_pb2.VERIFY_AUTHCODE, response)
+        response.error_code = common_pb2.ERROR_AUTHCODE_INVALID
+        helper.client_send(socket, common_pb2.VERIFY_AUTHCODE, response)
         return
     elif washer_mix['expired'] < int(time.time()):
         print('authcode expired')
-        response.error_code = washer_pb2.ERROR_AUTHCODE_EXPIRED
-        helper.client_send(socket, washer_pb2.VERIFY_AUTHCODE, response)
+        response.error_code = common_pb2.ERROR_AUTHCODE_EXPIRED
+        helper.client_send(socket, common_pb2.VERIFY_AUTHCODE, response)
         return
 
     print('verify authcode success') 
-    response.error_code = washer_pb2.SUCCESS
-    helper.client_send(socket, washer_pb2.VERIFY_AUTHCODE, response)
+    response.error_code = common_pb2.SUCCESS
+    helper.client_send(socket, common_pb2.VERIFY_AUTHCODE, response)
 
 #校验签名
 def verify_signature(phone, uuid, signature):
@@ -329,16 +329,18 @@ def verify_signature(phone, uuid, signature):
 
 #开工
 def start_work(socket, platform, data):
+    print("start_work invoked.")
     response = washer_pb2.Start_Work_Response() 
     washer   = Washer.get_online_washer(socket)
     if washer is None: #未登录
-        response.error_code = washer_pb2.ERROR_NOT_LOGIN
-        helper.client_send(socket, washer_pb2.START_WORK, response)
+        print("login first please")
+        response.error_code = common_pb2.ERROR_NOT_LOGIN
+        helper.client_send(socket, common_pb2.START_WORK, response)
         return
     """
     if washer['open'] == 1: #已经处于开工状态
-        response.error_code = washer_pb2.ERROR_ALREAD_START
-        helper.client_send(socket, washer_pb2.START_WORK, response)
+        response.error_code = common_pb2.ERROR_ALREAD_START
+        helper.client_send(socket, common_pb2.START_WORK, response)
         return
     """
     filter = {"phone": washer['phone']}
@@ -346,8 +348,8 @@ def start_work(socket, platform, data):
     result = Washer.update_one(filter, update)
     """
     if not result.modified_count: #mongo version 2.6开始才有此值
-        response.error_code = washer_pb2.ERROR_START_WORK_FAILURE
-        helper.client_send(socket, washer_pb2.START_WORK, response)
+        response.error_code = common_pb2.ERROR_START_WORK_FAILURE
+        helper.client_send(socket, common_pb2.START_WORK, response)
         return
     """
     request = washer_pb2.Start_Work_Request()
@@ -357,61 +359,62 @@ def start_work(socket, platform, data):
     latitude  = request.latitude
     result = Washer.in_workgroup(city_code, longitude, latitude, washer['phone'], washer['type'])
     if not result: #写入redis失败
-        response.error_code = washer_pb2.ERROR_START_WORK_FAILURE
-        helper.client_send(socket, washer_pb2.START_WORK, response)
+        print("add to workgroup failure")
+        response.error_code = common_pb2.ERROR_START_WORK_FAILURE
+        helper.client_send(socket, common_pb2.START_WORK, response)
         return
     washer['open'] = 1
     washer['city_code'] = city_code
     Washer.add_online_washer(socket, washer)
-    response.error_code = washer_pb2.SUCCESS
-    helper.client_send(socket, washer_pb2.START_WORK, response)
+    response.error_code = common_pb2.SUCCESS
+    helper.client_send(socket, common_pb2.START_WORK, response)
 
 #收工
 def stop_work(socket, platform, data):
     response = washer_pb2.Stop_Work_Response()
     washer   = Washer.get_online_washer(socket)
     if washer is None: #未登录
-        response.error_code = washer_pb2.ERROR_NOT_LOGIN
-        helper.client_send(socket, washer_pb2.STOP_WORK, response)
+        response.error_code = common_pb2.ERROR_NOT_LOGIN
+        helper.client_send(socket, common_pb2.STOP_WORK, response)
         return
     filter = {"phone": washer['phone']}
     update = {"$set": {"open": 0}}
     result = Washer.update_one(filter, update)
     if not result.modified_count:
-        response.error_code = washer_pb2.ERROR_STOP_WORK_FAILURE
-        helper.client_send(socket, washer_pb2.STOP_WORK, response)
+        response.error_code = common_pb2.ERROR_STOP_WORK_FAILURE
+        helper.client_send(socket, common_pb2.STOP_WORK, response)
         return
     result = Washer.out_workgroup(washer['city_code'], washer['phone'], washer['type'])
     if not result:
-        response.error_code = washer_pb2.ERROR_STOP_WORK_FAILURE
-        helper.client_send(socket, washer_pb2.STOP_WORK, response)
+        response.error_code = common_pb2.ERROR_STOP_WORK_FAILURE
+        helper.client_send(socket, common_pb2.STOP_WORK, response)
         return
-    response.error_code = washer_pb2.SUCCESS
-    helper.client_send(socket, washer_pb2.STOP_WORK, response)
+    response.error_code = common_pb2.SUCCESS
+    helper.client_send(socket, common_pb2.STOP_WORK, response)
 
 #更新地理位置
 def fresh_location(socket, platform, data):
     response = washer_pb2.Fresh_Location_Response()
     washer = Washer.get_online_washer(socket)
     if washer is None: #未登录
-        response.error_code = washer_pb2.ERROR_NOT_LOGIN
-        helper.client_send(socket, washer_pb2.FRESH_LOCATION, response)
+        response.error_code = common_pb2.ERROR_NOT_LOGIN
+        helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
         return
     
     request = washer_pb2.Fresh_Location_Request()
     request.ParseFromString(data)
     
     if not washer['open']: #没开工的不允许更新工作组中的地理位置
-        response.error_code = washer_pb2.ERROR_NOT_START_WORK
-        helper.client_send(socket, washer_pb2.FRESH_LOCATION, response)
+        response.error_code = common_pb2.ERROR_NOT_START_WORK
+        helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
     else:
         washer['city_code'] = request.city_code
         Washer.add_online_washer(socket, washer)
         return
 
     if washer['orders'] >= common.MAX_ORDERS: #超过所允许接单数
-        response.error_code = washer_pb2.ERROR_OUT_MAX_ORDERS
-        helper.client_send(socket, washer_pb2.FRESH_LOCATION, response)
+        response.error_code = common_pb2.ERROR_OUT_MAX_ORDERS
+        helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
         return
 
     city_code = request.city_code
@@ -419,11 +422,11 @@ def fresh_location(socket, platform, data):
     latitude  = request.latitude
     result = Washer.in_workgroup(city_code, longitude, latitude, washer['phone'], washer['type'])
     if not result:
-        response.error_code = washer_pb2.ERROR_FRESH_LOCATION_FAILURE
-        helper.client_send(socket, washer_pb2.FRESH_LOCATION, response)
+        response.error_code = common_pb2.ERROR_FRESH_LOCATION_FAILURE
+        helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
         return
-    response.error_code = washer_pb2.SUCCESS
-    helper.client_send(socket, washer_pb2.FRESH_LOCATION, response)
+    response.error_code = common_pb2.SUCCESS
+    helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
 
 #登出
 def logout(socket, platform, data):
@@ -435,6 +438,6 @@ def logout(socket, platform, data):
         Washer.update_one(filter, update)
         Washer.out_workgroup(washer['city_code'], washer['phone'], washer['type'])
         Washer.remove_online_washer(socket)
-    response.error_code = washer_pb2.SUCCESS
-    helper.client_send(socket, washer_pb2.LOGOUT, response)
+    response.error_code = common_pb2.SUCCESS
+    helper.client_send(socket, common_pb2.LOGOUT, response)
     socket.close() 

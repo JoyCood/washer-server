@@ -1,9 +1,11 @@
+import common_1_pb2 as common_pb2
+
 route = {
-    130000: "register",
-    130001: "login",
-    130002: "request_authcode",
-    130003: "verify_authcode",
-    130004: "fresh_location",
-    130005: "start_work",
-    130006: "stop_work"
+    common_pb2.REGISTER: "register",
+    common_pb2.LOGIN: "login",
+    common_pb2.REQUEST_AUTHCODE: "request_authcode",
+    common_pb2.VERIFY_AUTHCODE: "verify_authcode",
+    common_pb2.FRESH_LOCATION: "fresh_location",
+    common_pb2.START_WORK: "start_work",
+    common_pb2.STOP_WORK: "stop_work"
 }

@@ -103,7 +103,7 @@ def login(socket):
     #washer.longitude = 120.025806
     #washer.latitude  = 30.246185
     common.send(socket, common_pb2.LOGIN, washer)
-    body = common.get(socket)
+    (protocol, body) = common.get(socket)
     if body:
         washerResponse = washer_pb2.Login_Response()
         washerResponse.ParseFromString(body)
@@ -121,19 +121,28 @@ def start_work(socket):
     request.longitude = 120.025806
     request.latitude  = 30.246185
     common.send(socket, common_pb2.START_WORK, request)
-    body = common.get(socket)
-    if body:
-        response = washer_pb2.Start_Work_Response()
-        response.ParseFromString(body)
-        print(response)
-        return
-    print('start work failure')
+    print("start work, protocol:{}".format(common_pb2.START_WORK))
+    while True:
+        body = common.get(socket)
+        if not body:
+            break
+        else:
+            (protocol, data) = body
+            if protocol == common_pb2.START_WORK:
+                print("protocol: start_work")
+                response = washer_pb2.Start_Work_Response()
+            elif protocol == common_pb2.ALLOCATE_ORDER:
+                print("protocol: allocate_order")
+                response = order_pb2.Allocate_Order_Push()
+            response.ParseFromString(data)
+            print(response)
 
 if __name__ == '__main__':
     filepath = os.path.dirname(os.path.realpath(__file__))[:-8] + "protocol/v1"
     sys.path.append(filepath)
     import washer_1_pb2 as washer_pb2
     import common_1_pb2 as common_pb2
+    import order_1_pb2  as order_pb2
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((common.WASHER_BIND_HOST, common.WASHER_BIND_PORT))
     sys.stdout.write("%")
