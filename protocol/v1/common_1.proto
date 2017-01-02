@@ -1,0 +1,78 @@
+syntax = "proto2";
+
+enum Protocol {
+    FINISH_ORDER       = 120000;
+    CANCEL_ORDER       = 120001;
+    ALLOCATE_ORDER     = 120002;
+    REGISTER           = 130000;
+    LOGIN              = 130001;
+    REQUEST_AUTHCODE   = 130002;
+    VERIFY_AUTHCODE    = 130003;
+    START_WORK         = 130004;  
+    FRESH_LOCATION     = 130005;
+    STOP_WORK          = 130006;
+}
+
+enum Error_Code {
+    SUCCESS = 0;
+    ERROR_PASSWORD_INVALID   = 100000; //密码错误
+    ERROR_PASSWORD_NOT_EQUAL = 100001; //两个密码不一致
+    ERROR_WASHER_EXIST       = 100002; //商家已存在
+    ERROR_AUTHCODE_INVALID   = 100003; //验证码不对
+    ERROR_AUTHCODE_EXPIRED   = 100004; //验证码过期
+    ERROR_PHONE_INVALID      = 100005; //无效手机号
+    ERROR_WASHER_NOT_FOUND   = 100006; //找不到商家
+    ERROR_SIGNATURE_EXPIRED  = 100007; //签名过期
+    ERROR_SIGNATURE_INVALID  = 100008; //签名错误
+    ERROR_KICKOUT            = 100009; //踢下线 
+    ERROR_OPEN_FAILURE       = 100010; //开工失败
+    ERROR_ALREAD_START       = 100011; //已经开工了
+    ERROR_BAD_REQEUST        = 100100; //非法请求
+}
+
+enum Washer_Type {
+    PERSONAL = 1;
+    COMPANY  = 2;
+}
+
+enum Category {
+    CLOTHES_NORMAL = 1;
+    CLOTHES_JACKET = 2;
+    SHOSE_NORMAL   = 3;
+}
+
+enum Order_Status {
+    DEFAULT     = 0; //未分配
+    DISTRIBUTED = 1; //已派发
+    FINISH      = 2; //已完成
+    PAYED       = 3; //已支付
+    CANCELED    = 4; //已取消
+}
+
+message Customer {
+    optional string id        = 1;
+    optional string phone     = 2;
+    optional string nick      = 3;
+    optional string avatar    = 4;
+    optional float  level     = 5;
+    optional int32  city_code = 6;
+    optional float  longitude = 7;
+    optional float  latitude  = 8;
+}
+
+message Washer {
+    optional string id           = 1;
+    optional string phone        = 2;
+    optional string nick         = 3;
+    optional string avatar       = 4;
+    optional float  level        = 5;
+    optional int32  reg_time     = 6;
+    optional int32  last_login   = 7;
+    optional int32  status       = 8;
+    optional float  distance     = 9;
+    optional float  longitude    = 10;
+    optional float  latitude     = 11;
+    optional string secret       = 12; 
+    optional bool   open         = 13;
+    optional Washer_Type washer_type = 14; 
+}

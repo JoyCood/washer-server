@@ -1,3 +1,4 @@
+import os
 from pymongo import MongoClient
 from lib.washer import Washer
 import redis
@@ -33,3 +34,4 @@ MOD = {
 redis = redis.StrictRedis()
 mongo = MongoClient().hotelwasher
 AppServer = Washer.IWasher(APP_SERVER_HOST, APP_SERVER_PORT)
+SERVER_PATH = os.path.dirname(__file__)

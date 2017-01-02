@@ -7,9 +7,9 @@ import hashlib
 
 from helper import helper
 from .protocol import route
-import common_1_pb2 as common_pb2
-import washer_1_pb2 as washer_pb2
-import order_1_pb2  as order_pb2
+import common_pb2
+import washer_pb2
+import order_pb2
 from model.washer.washer import Washer
 from model.washer.washer import Mix as Washer_Mix
 from model.order.order import Order
@@ -77,7 +77,7 @@ def _login(socket, phone, password):
         print('password invalid.')
         return
     print('login success')
-    filter = {"washer_phone": phone, "statu": common_pb2.DISTRIBUTED}
+    filter = {"washer_phone": phone, "statu": order_pb2.DISTRIBUTED}
     orders = Order.find(filter).count()
     _washer = {
         "id": str(washer['_id']),
@@ -91,17 +91,17 @@ def _login(socket, phone, password):
         "socket": socket
     }
     Washer.add_online_washer(socket, _washer)
-    response.washer.id          = str(washer['_id'])
-    response.washer.phone       = washer['phone']
-    response.washer.nick        = washer['nick']
-    response.washer.avatar      = washer['avatar']
-    response.washer.level       = washer['level']
-    response.washer.reg_time    = washer['reg_time']
-    response.washer.status      = washer['status']
-    response.washer.open        = washer['open']
-    response.washer.washer_type = washer['type']
-    response.error_code         = common_pb2.SUCCESS
-    helper.client_send(socket, common_pb2.LOGIN, response)
+    response.washer.id       = str(washer['_id'])
+    response.washer.phone    = washer['phone']
+    response.washer.nick     = washer['nick']
+    response.washer.avatar   = washer['avatar']
+    response.washer.level    = washer['level']
+    response.washer.reg_time = washer['reg_time']
+    response.washer.status   = washer['status']
+    response.washer.open     = washer['open']
+    response.washer.type     = washer['type']
+    response.error_code      = washer_pb2.SUCCESS
+    helper.client_send(socket, washer_pb2.LOGIN, response)
     filter = {"phone":phone}
     update = {"$set": {"last_login":int(time.time())}}
     Washer.update_one(filter, update)
@@ -202,7 +202,7 @@ def register(socket, platform, data):
         "address": "",
         "longitude": 0.0,
         "latitude": 0.0,
-        "type": common_pb2.PERSONAL, #用户类型
+        "type": washer_pb2.NORMAL, #用户类型
         "open": 0 #是否营业
     }
 

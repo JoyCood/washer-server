@@ -4,7 +4,7 @@ enum Protocol {
     ALLOCATE_ORDER = 810000;
 }
 
-enum Order_Type {
+enum Washer_Type {
     NORMAL = 1;
     PROFESSIONAL = 2;
 }
@@ -12,7 +12,7 @@ enum Order_Type {
 enum Order_Status {
     DEFAULT     = 0; //未分配
     DISTRIBUTED = 1; //已派发
-    DELIVERED   = 2; //已取件
+    FINISH      = 2; //已完成
     PAYED       = 3; //已支付
     CANCELED    = 4; //已取消
 }
@@ -36,7 +36,7 @@ message Customer {
 
 message Allocate_Order_Request {
     required string order_id       = 1;
-    required Order_Type order_type = 2;
+    required Washer_Type washer_type = 2;
     required float quantity        = 3;
     required Customer customer     = 4;
 }
@@ -52,7 +52,14 @@ message Allocate_Order_Response {
     required Error_Code error_code = 8;
 }
 
-//已取件
-message Order_Pickup_Request {
+//已完成
+message Order_Finish_Request {
     required string customer_phone = 1;
+}
+
+message Allocate_Order_Push {
+    required Customer customer = 1;
+    required string order_id = 2;
+    required int32 quantity = 3;
+    required Error_Code error_code = 4;
 }

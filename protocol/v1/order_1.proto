@@ -1,0 +1,27 @@
+syntax = "proto2";
+import "common_1.proto";
+
+//更新完成状态
+message Order_Finish_Request {
+    required string order_id = 1;
+}
+
+message Order_Finish_Response {
+    required Error_Code error_code = 1;
+}
+
+//取消订单
+message Order_Cancel_Request {
+    required string order_id = 1;
+}
+
+message Order_Cancel_Response {
+    required Error_Code error_code = 1;
+}
+
+message Allocate_Order_Push {
+    required Customer customer = 1;
+    required string order_id   = 2;
+    required string quantity   = 3;    
+    required Error_Code error_code = 4;
+}

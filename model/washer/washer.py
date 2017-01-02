@@ -96,7 +96,6 @@ class Washer(object):
         distance  = _washer[1]
         longitude = float(_washer[2][0])
         latitude  = float(_washer[2][1])
-        print("washer_map".format(cls._washer_map))
         _socket   = cls._washer_map[phone]
         washer = cls.get_online_washer(_socket)
         if washer is None:
@@ -117,6 +116,7 @@ class Washer(object):
             cls.out_workgroup(city_code, phone, washer['type'])
         washer['orders'] += 1
         cls.add_online_washer(washer['socket'], washer)
+
         return _washer
 
     @classmethod

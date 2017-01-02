@@ -61,7 +61,8 @@ def allocate_order(socket, platform, data):
         "$set":{
             "washer_phone":washer['phone'], 
             "washer_nick":washer['nick'],
-            "status": system_order_pb2.DELIVERED
+            "status": system_order_pb2.DISTRIBUTED,
+            "allocate_time": int(time.time())
             }
     }
     result = Order.update_one(filter, update)
@@ -70,6 +71,7 @@ def allocate_order(socket, platform, data):
         response.error_code = system_order_pb2.ERROR_ALLOCATE_WASHER_FAILURE
         helper.system_response(socket, system_order_pb2.ALLOCATE_ORDER, response)
         return
+    
     response.id = washer['id']
     response.phone = washer['phone']
     response.nick  = washer['nick']
@@ -80,6 +82,20 @@ def allocate_order(socket, platform, data):
     response.error_code = system_order_pb2.SUCCESS
     
     helper.system_response(socket, system_order_pb2.ALLOCATE_ORDER, response)
+
+    #通知商家有人下单
+    response = order_pb2.Allocate_Order_Push()
+    response.customer.id = customer_id
+    response.customer.phone = customer_phone
+    response.customer.nick  = customer_nick
+    response.customer.avatar = customer_avatar
+    response.customer.level = customer_level
+    response.customer.longitude = customer_longitude
+    response.customer.latitude = customer_latitude
+    response.order_id = order_id
+    response.quantity = quantity
+    response.error_code = order_pb2.SUCCESS
+    helper.client_send(washer['socket'], order_pb2.ALLOCATE_ORDER, response)
 
 #用户取消订单
 def cancel_order(socket, platform, data):

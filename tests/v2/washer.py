@@ -120,7 +120,7 @@ def start_work(socket):
     request.city_code = 179
     request.longitude = 120.025806
     request.latitude  = 30.246185
-    common.send(socket, common_pb2.START_WORK, request)
+    common.send(socket, washer_pb2.START_WORK, request)
     body = common.get(socket)
     if body:
         response = washer_pb2.Start_Work_Response()
@@ -132,8 +132,8 @@ def start_work(socket):
 if __name__ == '__main__':
     filepath = os.path.dirname(os.path.realpath(__file__))[:-8] + "protocol/v1"
     sys.path.append(filepath)
-    import washer_1_pb2 as washer_pb2
-    import common_1_pb2 as common_pb2
+    import washer_pb2
+    import common_pb2
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((common.WASHER_BIND_HOST, common.WASHER_BIND_PORT))
     sys.stdout.write("%")
