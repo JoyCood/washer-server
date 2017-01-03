@@ -2,11 +2,11 @@ syntax = "proto2";
 import "common_1.proto";
 
 //更新完成状态
-message Order_Finish_Request {
+message Finish_Order_Request {
     required string order_id = 1;
 }
 
-message Order_Finish_Response {
+message Finish_Order_Response {
     required Error_Code error_code = 1;
 }
 
@@ -17,6 +17,17 @@ message Order_Cancel_Request {
 
 message Order_Cancel_Response {
     required Error_Code error_code = 1;
+}
+
+//历史订单列表
+message History_Order_Request {
+    optional int32 offset = 1;
+    optional int32 limit  = 2;
+}
+
+message History_Order_Response {
+    optional Order order = 1;
+    required Error_Code error_code = 2;
 }
 
 //推送订单给商家

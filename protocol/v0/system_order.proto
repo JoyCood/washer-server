@@ -20,7 +20,7 @@ message Allocate_Order_Response {
 }
 
 //已完成
-message Order_Finish_Request {
+message Finish_Order_Request {
     required string customer_phone = 1;
 }
 

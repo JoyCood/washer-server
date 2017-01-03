@@ -60,8 +60,10 @@ def allocate_order(socket, platform, data):
     filter = {"_id":ObjectId(order_id)}
     update = {
         "$set":{
-            "washer_phone":washer['phone'], 
-            "washer_nick":washer['nick'],
+            "washer_id": washer['id'],
+            "washer_phone": washer['phone'], 
+            "washer_nick": washer['nick'],
+            "washer_avatar": washer['avatar'],
             "status": system_common_pb2.DISTRIBUTED,
             "allocate_time": int(time.time())
             }

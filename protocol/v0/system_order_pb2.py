@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='system_order.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\x12system_order.proto\x1a\x13system_common.proto\"|\n\x16\x41llocate_Order_Request\x12\x10\n\x08order_id\x18\x01 \x02(\t\x12!\n\x0bwasher_type\x18\x02 \x02(\x0e\x32\x0c.Washer_Type\x12\x10\n\x08quantity\x18\x03 \x02(\x05\x12\x1b\n\x08\x63ustomer\x18\x04 \x02(\x0b\x32\t.Customer\"\xa7\x01\n\x17\x41llocate_Order_Response\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x11\n\tlongitude\x18\x06 \x01(\x02\x12\x10\n\x08latitude\x18\x07 \x01(\x02\x12\x1f\n\nerror_code\x18\x08 \x02(\x0e\x32\x0b.Error_Code\".\n\x14Order_Finish_Request\x12\x16\n\x0e\x63ustomer_phone\x18\x01 \x02(\t\"w\n\x13\x41llocate_Order_Push\x12\x1b\n\x08\x63ustomer\x18\x01 \x02(\x0b\x32\t.Customer\x12\x10\n\x08order_id\x18\x02 \x02(\t\x12\x10\n\x08quantity\x18\x03 \x02(\x05\x12\x1f\n\nerror_code\x18\x04 \x02(\x0e\x32\x0b.Error_Code')
+  serialized_pb=_b('\n\x12system_order.proto\x1a\x13system_common.proto\"|\n\x16\x41llocate_Order_Request\x12\x10\n\x08order_id\x18\x01 \x02(\t\x12!\n\x0bwasher_type\x18\x02 \x02(\x0e\x32\x0c.Washer_Type\x12\x10\n\x08quantity\x18\x03 \x02(\x05\x12\x1b\n\x08\x63ustomer\x18\x04 \x02(\x0b\x32\t.Customer\"\xa7\x01\n\x17\x41llocate_Order_Response\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x11\n\tlongitude\x18\x06 \x01(\x02\x12\x10\n\x08latitude\x18\x07 \x01(\x02\x12\x1f\n\nerror_code\x18\x08 \x02(\x0e\x32\x0b.Error_Code\".\n\x14\x46inish_Order_Request\x12\x16\n\x0e\x63ustomer_phone\x18\x01 \x02(\t\"w\n\x13\x41llocate_Order_Push\x12\x1b\n\x08\x63ustomer\x18\x01 \x02(\x0b\x32\t.Customer\x12\x10\n\x08order_id\x18\x02 \x02(\t\x12\x10\n\x08quantity\x18\x03 \x02(\x05\x12\x1f\n\nerror_code\x18\x04 \x02(\x0e\x32\x0b.Error_Code')
   ,
   dependencies=[system__common__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -160,15 +160,15 @@ _ALLOCATE_ORDER_RESPONSE = _descriptor.Descriptor(
 )
 
 
-_ORDER_FINISH_REQUEST = _descriptor.Descriptor(
-  name='Order_Finish_Request',
-  full_name='Order_Finish_Request',
+_FINISH_ORDER_REQUEST = _descriptor.Descriptor(
+  name='Finish_Order_Request',
+  full_name='Finish_Order_Request',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='customer_phone', full_name='Order_Finish_Request.customer_phone', index=0,
+      name='customer_phone', full_name='Finish_Order_Request.customer_phone', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -249,7 +249,7 @@ _ALLOCATE_ORDER_PUSH.fields_by_name['customer'].message_type = system__common__p
 _ALLOCATE_ORDER_PUSH.fields_by_name['error_code'].enum_type = system__common__pb2._ERROR_CODE
 DESCRIPTOR.message_types_by_name['Allocate_Order_Request'] = _ALLOCATE_ORDER_REQUEST
 DESCRIPTOR.message_types_by_name['Allocate_Order_Response'] = _ALLOCATE_ORDER_RESPONSE
-DESCRIPTOR.message_types_by_name['Order_Finish_Request'] = _ORDER_FINISH_REQUEST
+DESCRIPTOR.message_types_by_name['Finish_Order_Request'] = _FINISH_ORDER_REQUEST
 DESCRIPTOR.message_types_by_name['Allocate_Order_Push'] = _ALLOCATE_ORDER_PUSH
 
 Allocate_Order_Request = _reflection.GeneratedProtocolMessageType('Allocate_Order_Request', (_message.Message,), dict(
@@ -266,12 +266,12 @@ Allocate_Order_Response = _reflection.GeneratedProtocolMessageType('Allocate_Ord
   ))
 _sym_db.RegisterMessage(Allocate_Order_Response)
 
-Order_Finish_Request = _reflection.GeneratedProtocolMessageType('Order_Finish_Request', (_message.Message,), dict(
-  DESCRIPTOR = _ORDER_FINISH_REQUEST,
+Finish_Order_Request = _reflection.GeneratedProtocolMessageType('Finish_Order_Request', (_message.Message,), dict(
+  DESCRIPTOR = _FINISH_ORDER_REQUEST,
   __module__ = 'system_order_pb2'
-  # @@protoc_insertion_point(class_scope:Order_Finish_Request)
+  # @@protoc_insertion_point(class_scope:Finish_Order_Request)
   ))
-_sym_db.RegisterMessage(Order_Finish_Request)
+_sym_db.RegisterMessage(Finish_Order_Request)
 
 Allocate_Order_Push = _reflection.GeneratedProtocolMessageType('Allocate_Order_Push', (_message.Message,), dict(
   DESCRIPTOR = _ALLOCATE_ORDER_PUSH,

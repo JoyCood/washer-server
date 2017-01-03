@@ -27,6 +27,7 @@ enum Error_Code {
     ERROR_KICKOUT            = 100009; //踢下线 
     ERROR_OPEN_FAILURE       = 100010; //开工失败
     ERROR_ALREAD_START       = 100011; //已经开工了
+    ERROR_NOT_LOGIN          = 100012; //未登录
     ERROR_BAD_REQEUST        = 100100; //非法请求
 }
 
@@ -74,5 +75,19 @@ message Washer {
     optional float  latitude     = 11; //纬度
     optional string secret       = 12; //密钥
     optional bool   open         = 13; //是否处于开工状态(1开工 0收工)
-    optional Washer_Type washer_type = 14; //商家类型 
+    optional Washer_Type type = 14; //商家类型 
+}
+
+message Order {
+    optional string id  = 1;
+    optional string washer_nick = 2;
+    optional Washer_Type washer_type = 3;
+    optional int32 quantity = 4;
+    optional float price = 5;
+    optional float total_fee = 6;
+    optional float discount = 7;
+    optional Order_Status status = 8;
+    optional int32 order_time = 9;
+    optional int32 finish_time = 10;
+    optional int32 pay_time = 11;
 }

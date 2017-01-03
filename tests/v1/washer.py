@@ -43,8 +43,8 @@ def request_authcode(socket):
     requestAuthcode = washer_pb2.Request_Authcode_Request()
     requestAuthcode.phone = WASHER_PHONE
     requestAuthcode.signature = 'signature'
-    common.send(socket, washer_pb2.REQUEST_AUTHCODE, requestAuthcode)
-    body = common.get(socket)
+    common.send(socket, common_pb2.REQUEST_AUTHCODE, requestAuthcode)
+    (protocol, body) = common.get(socket)
     if body:
         raResponse = washer_pb2.Request_Authcode_Response()
         raResponse.ParseFromString(body)
@@ -62,12 +62,12 @@ def verify_authcode(socket):
     verifyAuthcode.phone = WASHER_PHONE
     verifyAuthcode.authcode = authcode
     verifyAuthcode.signature = 'signature'
-    common.send(socket, washer_pb2.VERIFY_AUTHCODE, verifyAuthcode)
-    body = common.get(socket)
+    common.send(socket, common_pb2.VERIFY_AUTHCODE, verifyAuthcode)
+    (protocol,body) = common.get(socket)
     if body:
         va = washer_pb2.Verify_Authcode_Response()
         va.ParseFromString(body);
-        if va.error_code == washer_pb2.SUCCESS:
+        if va.error_code == common_pb2.SUCCESS:
             print("verify authcode success:%s" % va.error_code)
             return authcode
     print('verify authcode failure')
@@ -85,9 +85,9 @@ def register(socket):
     pb.password2 = 'iwasher'
     pb.nick = 'iwasher'
     pb.signature = 'signature'
-    pb.type = washer_pb2.NORMAL
-    common.send(socket, washer_pb2.REGISTER, pb)
-    body = common.get(socket)
+    pb.type = common_pb2.PERSONAL
+    common.send(socket, common_pb2.REGISTER, pb)
+    (protocol, body) = common.get(socket)
     if body:
         res = washer_pb2.Register_Response()
         res.ParseFromString(body)
@@ -131,11 +131,23 @@ def start_work(socket):
             if protocol == common_pb2.START_WORK:
                 print("protocol: start_work")
                 response = washer_pb2.Start_Work_Response()
+                response.ParseFromString(data)
+                print(response)
             elif protocol == common_pb2.ALLOCATE_ORDER:
                 print("protocol: allocate_order")
                 response = order_pb2.Allocate_Order_Push()
-            response.ParseFromString(data)
-            print(response)
+                response.ParseFromString(data)
+                print(response)
+
+                request = order_pb2.Finish_Order_Request()
+                request.order_id = response.order_id
+                common.send(socket, common_pb2.FINISH_ORDER, request)
+                
+            elif protocol == common_pb2.FINISH_ORDER:
+                print("protocol: finish_order" )
+                response = order_pb2.Finish_Order_Response()
+                response.ParseFromString(data)
+                print(response)
 
 if __name__ == '__main__':
     filepath = os.path.dirname(os.path.realpath(__file__))[:-8] + "protocol/v1"

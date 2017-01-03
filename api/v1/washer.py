@@ -5,6 +5,7 @@ import sys
 import time
 import hashlib
 
+import common
 from helper import helper
 from .protocol import route
 import common_1_pb2 as common_pb2
@@ -42,7 +43,7 @@ def login(socket, platform, data):
         return
     
     if password:
-        _login(socket, phone, password)
+        _login(socket, phone, password, uuid)
         return
     
     if signature:
@@ -54,7 +55,7 @@ def login(socket, platform, data):
     helper.client_send(socket, common_pb2.LOGIN, response)
 
 #密码登录
-def _login(socket, phone, password):
+def _login(socket, phone, password, uuid):
     response = washer_pb2.Login_Response()
 
     md5 = hashlib.md5()
@@ -76,7 +77,7 @@ def _login(socket, phone, password):
         helper.client_send(socket, common_pb2.LOGIN, response)
         print('password invalid.')
         return
-    print('login success')
+    print('{}, login success'.format(phone))
     filter = {"washer_phone": phone, "statu": common_pb2.DISTRIBUTED}
     orders = Order.find(filter).count()
     _washer = {
@@ -99,7 +100,8 @@ def _login(socket, phone, password):
     response.washer.reg_time    = washer['reg_time']
     response.washer.status      = washer['status']
     response.washer.open        = washer['open']
-    response.washer.washer_type = washer['type']
+    response.washer.type        = washer['type']
+    response.washer.secret      = _make_secret(phone, uuid)
     response.error_code         = common_pb2.SUCCESS
     helper.client_send(socket, common_pb2.LOGIN, response)
     filter = {"phone":phone}
@@ -127,7 +129,7 @@ def _reconnect(socket, phone, uuid, signature, city_code, longitude, latitude):
     
     _washer['socket'] = socket
     _washer['phone']  = washer['phone']
-    add_online_washer(_washer)
+    Washer.add_online_washer(socket, _washer)
 
     response.id     = str(washer['_id'])
     response.nick   = washer['nick']
@@ -270,7 +272,7 @@ def request_authcode(socket, platform, data):
         }
         result = Washer_Mix.update_one(filter, doc)
     
-    print('request authcode success')
+    print('request authcode success,authcode:{}'.format(authcode))
     authcode = authcode or washer_mix['authcode']
     response.authcode = authcode
     response.error_code = common_pb2.SUCCESS
@@ -329,7 +331,6 @@ def verify_signature(phone, uuid, signature):
 
 #开工
 def start_work(socket, platform, data):
-    print("start_work invoked.")
     response = washer_pb2.Start_Work_Response() 
     washer   = Washer.get_online_washer(socket)
     if washer is None: #未登录
@@ -359,7 +360,7 @@ def start_work(socket, platform, data):
     latitude  = request.latitude
     result = Washer.in_workgroup(city_code, longitude, latitude, washer['phone'], washer['type'])
     if not result: #写入redis失败
-        print("add to workgroup failure")
+        print("(), add to workgroup failure".format(washer['phone']))
         response.error_code = common_pb2.ERROR_START_WORK_FAILURE
         helper.client_send(socket, common_pb2.START_WORK, response)
         return
@@ -368,6 +369,7 @@ def start_work(socket, platform, data):
     Washer.add_online_washer(socket, washer)
     response.error_code = common_pb2.SUCCESS
     helper.client_send(socket, common_pb2.START_WORK, response)
+    print("{}, start work success".format(washer['phone']))
 
 #收工
 def stop_work(socket, platform, data):
@@ -441,3 +443,23 @@ def logout(socket, platform, data):
     response.error_code = common_pb2.SUCCESS
     helper.client_send(socket, common_pb2.LOGOUT, response)
     socket.close() 
+
+#生成令牌
+def _make_secret(phone, uuid):
+    now = time.time()
+
+    elements = [str(now)]
+    elements.append(common.APP_KEY)
+    elements.append(uuid)
+    elements.append(helper.make_rand(6))
+    elements.append(phone)
+    
+    secret = ''.join(elements)
+    
+    md5 = hashlib.md5()
+    md5.update(secret.encode())
+    secret = md5.hexdigest()
+    filter = {"phone": phone}
+    update = {"$set":{"secret":secret}}
+    Washer.update_one(filter, update)
+    return secret

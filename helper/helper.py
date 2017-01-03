@@ -1,5 +1,6 @@
 import common
 import random
+import string
 import struct
 import socket
 import hashlib
@@ -60,6 +61,10 @@ def md5(x):
     m = hashlib.md5()
     m.update(x.encode())
     return m.hexdigest()
+
+def make_rand(size):
+    chars = string.ascii_letters + string.digits
+    return ''.join((random.choice(chars) for _ in range(size)))
 
 def verify_phone(phone, country='CN'):
     try:

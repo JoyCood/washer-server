@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='system_common.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\x13system_common.proto\"\x8a\x01\n\x08\x43ustomer\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x11\n\tcity_code\x18\x06 \x01(\x05\x12\x11\n\tlongitude\x18\x07 \x01(\x02\x12\x10\n\x08latitude\x18\x08 \x01(\x02*\'\n\x0fSystem_Protocol\x12\x14\n\x0e\x41LLOCATE_ORDER\x10\x90\xb8\x31*.\n\x0f\x43lient_Protocol\x12\x1b\n\x15WASHER_ALLOCATE_ORDER\x10\xc2\xa9\x07*(\n\x0bWasher_Type\x12\x0c\n\x08PERSONAL\x10\x01\x12\x0b\n\x07\x43OMPANY\x10\x02*Q\n\x0cOrder_Status\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\x0f\n\x0b\x44ISTRIBUTED\x10\x01\x12\n\n\x06\x46INISH\x10\x02\x12\t\n\x05PAYED\x10\x03\x12\x0c\n\x08\x43\x41NCELED\x10\x04*7\n\nError_Code\x12\x0b\n\x07SUCCESS\x10\x00\x12\x1c\n\x16\x45RROR_WASHER_NOT_FOUND\x10\x90\xb8\x31')
+  serialized_pb=_b('\n\x13system_common.proto\"\x8a\x01\n\x08\x43ustomer\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x11\n\tcity_code\x18\x06 \x01(\x05\x12\x11\n\tlongitude\x18\x07 \x01(\x02\x12\x10\n\x08latitude\x18\x08 \x01(\x02*;\n\x0fSystem_Protocol\x12\x14\n\x0e\x41LLOCATE_ORDER\x10\x90\xb8\x31\x12\x12\n\x0c\x46INISH_ORDER\x10\x91\xb8\x31*.\n\x0f\x43lient_Protocol\x12\x1b\n\x15WASHER_ALLOCATE_ORDER\x10\xc2\xa9\x07*(\n\x0bWasher_Type\x12\x0c\n\x08PERSONAL\x10\x01\x12\x0b\n\x07\x43OMPANY\x10\x02*Q\n\x0cOrder_Status\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\x0f\n\x0b\x44ISTRIBUTED\x10\x01\x12\n\n\x06\x46INISH\x10\x02\x12\t\n\x05PAYED\x10\x03\x12\x0c\n\x08\x43\x41NCELED\x10\x04*7\n\nError_Code\x12\x0b\n\x07SUCCESS\x10\x00\x12\x1c\n\x16\x45RROR_WASHER_NOT_FOUND\x10\x90\xb8\x31')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -34,11 +34,15 @@ _SYSTEM_PROTOCOL = _descriptor.EnumDescriptor(
       name='ALLOCATE_ORDER', index=0, number=810000,
       options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FINISH_ORDER', index=1, number=810001,
+      options=None,
+      type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=164,
-  serialized_end=203,
+  serialized_end=223,
 )
 _sym_db.RegisterEnumDescriptor(_SYSTEM_PROTOCOL)
 
@@ -56,8 +60,8 @@ _CLIENT_PROTOCOL = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=205,
-  serialized_end=251,
+  serialized_start=225,
+  serialized_end=271,
 )
 _sym_db.RegisterEnumDescriptor(_CLIENT_PROTOCOL)
 
@@ -79,8 +83,8 @@ _WASHER_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=253,
-  serialized_end=293,
+  serialized_start=273,
+  serialized_end=313,
 )
 _sym_db.RegisterEnumDescriptor(_WASHER_TYPE)
 
@@ -114,8 +118,8 @@ _ORDER_STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=295,
-  serialized_end=376,
+  serialized_start=315,
+  serialized_end=396,
 )
 _sym_db.RegisterEnumDescriptor(_ORDER_STATUS)
 
@@ -137,13 +141,14 @@ _ERROR_CODE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=378,
-  serialized_end=433,
+  serialized_start=398,
+  serialized_end=453,
 )
 _sym_db.RegisterEnumDescriptor(_ERROR_CODE)
 
 Error_Code = enum_type_wrapper.EnumTypeWrapper(_ERROR_CODE)
 ALLOCATE_ORDER = 810000
+FINISH_ORDER = 810001
 WASHER_ALLOCATE_ORDER = 120002
 PERSONAL = 1
 COMPANY = 2
