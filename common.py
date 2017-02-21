@@ -24,6 +24,17 @@ AUTHCODE_EXPIRED_TIME = 600
 WASHER_INIT_LEVEL = 1
 MAX_ORDERS = 1
 
+WECHAT_PAY = {
+        "appkey": "f9c62cccbdc99de463304d89358788f9",
+        "appid": 'wxd32d25b2a43c0f93',
+        "mchid": '1312998901',
+        'notify_url': 'https://developer.7swim.com'
+}
+
+ALIPAY = {
+        
+}
+
 MOD = {
     '11': 'member',
     '12': 'order',

@@ -3,7 +3,12 @@ syntax = "proto2";
 enum Protocol {
     FINISH_ORDER       = 120000; //清洗完毕，完成订单
     CANCEL_ORDER       = 120001; //取消订单
-    ALLOCATE_ORDER     = 120002; //分配订单(当有用户下单时，系统分配商家并推送给所分配的商家)
+    ALLOCATE_ORDER     = 120002; //分配订单(当有用户下单时通知到商家)
+    WECHAT_PAY         = 120003;
+    ALIPAY             = 120004;
+    PROCESSING_ORDER   = 120005; //清洗
+    ORDER_FEEDBACK     = 120006; //商家对订单评分
+
     REGISTER           = 130000; //注册
     LOGIN              = 130001; //登录及断线重连
     REQUEST_AUTHCODE   = 130002; //请求验证码
@@ -15,20 +20,23 @@ enum Protocol {
 
 enum Error_Code {
     SUCCESS = 0;
-    ERROR_PASSWORD_INVALID   = 100000; //密码错误
-    ERROR_PASSWORD_NOT_EQUAL = 100001; //两个密码不一致
-    ERROR_WASHER_EXIST       = 100002; //商家已存在
-    ERROR_AUTHCODE_INVALID   = 100003; //验证码不对
-    ERROR_AUTHCODE_EXPIRED   = 100004; //验证码过期
-    ERROR_PHONE_INVALID      = 100005; //无效手机号
-    ERROR_WASHER_NOT_FOUND   = 100006; //找不到商家
-    ERROR_SIGNATURE_EXPIRED  = 100007; //签名过期
-    ERROR_SIGNATURE_INVALID  = 100008; //签名错误
-    ERROR_KICKOUT            = 100009; //踢下线 
-    ERROR_OPEN_FAILURE       = 100010; //开工失败
-    ERROR_ALREAD_START       = 100011; //已经开工了
-    ERROR_NOT_LOGIN          = 100012; //未登录
-    ERROR_BAD_REQEUST        = 100100; //非法请求
+    ERROR_PASSWORD_INVALID       = 100000; //密码错误
+    ERROR_PASSWORD_NOT_EQUAL     = 100001; //两个密码不一致
+    ERROR_WASHER_EXIST           = 100002; //商家已存在
+    ERROR_AUTHCODE_INVALID       = 100003; //验证码不对
+    ERROR_AUTHCODE_EXPIRED       = 100004; //验证码过期
+    ERROR_PHONE_INVALID          = 100005; //无效手机号
+    ERROR_WASHER_NOT_FOUND       = 100006; //找不到商家
+    ERROR_SIGNATURE_EXPIRED      = 100007; //签名过期
+    ERROR_SIGNATURE_INVALID      = 100008; //签名错误
+    ERROR_KICKOUT                = 100009; //踢下线 
+    ERROR_OPEN_FAILURE           = 100010; //开工失败
+    ERROR_ALREAD_START           = 100011; //已经开工了
+    ERROR_NOT_LOGIN              = 100012; //未登录
+    ERROR_PROCESSING_FAILURE     = 100013; //清洗失败
+    ERROR_FINISH_ORDER_FAILURE   = 100014; //送回失败
+    ERROR_ORDER_FEEDBACK_FAILURE = 100015; //订单评分失败
+    ERROR_BAD_REQEUST            = 100100; //非法请求
 }
 
 enum Washer_Type {
@@ -37,7 +45,7 @@ enum Washer_Type {
 }
 
 enum Category {
-    CLOTHES_NORMAL = 1; //衬衫
+    CLOTHES_NORMAL = 1; //普通衣物
     CLOTHES_JACKET = 2; //夹克
     SHOSE_NORMAL   = 3; //鞋子
 }
@@ -45,9 +53,10 @@ enum Category {
 enum Order_Status {
     DEFAULT     = 0; //未分配
     DISTRIBUTED = 1; //已派发
-    FINISH      = 2; //已完成
-    PAYED       = 3; //已支付
-    CANCELED    = 4; //已取消
+    PROCESSING  = 2; //清洗中
+    FINISH      = 3; //已完成
+    PAYED       = 4; //已支付
+    CANCELED    = 5; //已取消
 }
 
 message Customer {
@@ -90,4 +99,18 @@ message Order {
     optional int32 order_time = 9;
     optional int32 finish_time = 10;
     optional int32 pay_time = 11;
+}
+
+message WechatPay {
+    required string appid = 1;
+    required string partnerid = 2;
+    required string prepayid = 3;
+    required string pkg = 4;
+    required string noncestr = 5;
+    required string timestampe = 6;
+    required string sign = 7;
+}
+
+message Alipay {
+
 }

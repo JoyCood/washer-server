@@ -110,6 +110,18 @@ def login(socket):
         print(washerResponse)
         return True
     print('login failure')
+
+def wechat_pay(socket):
+    login(socket)
+    request = order_pb2.Wechat_Pay_Request()
+    request.order_id = '123456677756443'
+    common.send(socket, common_pb2.WECHAT_PAY, request)
+    (protocol, body) = common.get(socket)
+    if body:
+        response = order_pb2.Wechat_Pay_Response()
+        response.ParseFromString(body)
+        print(response)
+
     
 def start_work(socket):
     result = login(socket)
@@ -138,10 +150,22 @@ def start_work(socket):
                 response = order_pb2.Allocate_Order_Push()
                 response.ParseFromString(data)
                 print(response)
+                
+                print("protocol: processing_order")
+                request = order_pb2.Processing_Order_Request()
+                request.order_id = response.order_id
+                common.send(socket, common_pb2.PROCESSING_ORDER, request)
 
+                print("protocol: finish_order")
                 request = order_pb2.Finish_Order_Request()
                 request.order_id = response.order_id
                 common.send(socket, common_pb2.FINISH_ORDER, request)
+
+                print("protocol: order_feedback")
+                request = order_pb2.Order_Feedback_Request()
+                request.order_id = response.order_id
+                request.score = 5
+                common.send(socket, common_pb2.ORDER_FEEDBACK, request)
                 
             elif protocol == common_pb2.FINISH_ORDER:
                 print("protocol: finish_order" )
