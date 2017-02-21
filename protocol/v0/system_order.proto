@@ -19,6 +19,15 @@ message Allocate_Order_Response {
     required Error_Code error_code = 8;
 }
 
+//取消订单
+message Cancel_Order_Request {
+    required string order_id = 1;
+}
+
+message Cancel_Order_Response {
+    required Error_Code error_code = 1;
+}
+
 //已完成
 message Finish_Order_Request {
     required string customer_phone = 1;

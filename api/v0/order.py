@@ -40,24 +40,14 @@ def allocate_order(socket, platform, data):
     
     print("customer_city_code:{}, customer_longitude:{}, customer_latitude:{}, washer_type:{}, quantity:{}".format(customer_city_code, customer_longitude, customer_latitude, washer_type, quantity))
     washer = Washer.allocate_washer(customer_city_code, customer_longitude, customer_latitude, washer_type)
-    """
-    washer = {
-        "id": '1234567890',
-        "phone": '+8613533332421',
-        "nick": 'iwasher',
-        "avatar": 'http://www.image.com/1.jpg',
-        "level": 5.0,
-        "longitude": 120.025806,
-        "latitude" : 30.246185
-    }
-    """
+
     response = system_order_pb2.Allocate_Order_Response()
     if washer is None:
         response.error_code = system_common_pb2.ERROR_WASHER_NOT_FOUND
         helper.system_response(socket, system_common_pb2.ALLOCATE_ORDER, response)
         return
 
-    filter = {"_id":ObjectId(order_id)}
+    filter = {"_id": ObjectId(order_id) }
     update = {
         "$set":{
             "washer_id": washer['id'],

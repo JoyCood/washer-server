@@ -1,15 +1,6 @@
 syntax = "proto2";
 import "common_1.proto";
 
-//更新为正在清洗状态
-message Processing_Order_Request {
-    required string order_id = 1;
-}
-
-message Processing_Order_Response {
-    required Error_Code error_code = 1;
-}
-
 //更新完成状态
 message Finish_Order_Request {
     required string order_id = 1;
@@ -19,22 +10,12 @@ message Finish_Order_Response {
     required Error_Code error_code = 1;
 }
 
-//订单评分
-message Order_Feedback_Request {
-    required string order_id = 1;
-    required int32  score    = 2; 
-}
-
-message Order_Feedback_Response {
-    required Error_Code error_code = 1;
-}
-
 //取消订单
-message Order_Cancel_Request {
+message Cancel_Order_Request {
     required string order_id = 1;
 }
 
-message Order_Cancel_Response {
+message Cancel_Order_Response {
     required Error_Code error_code = 1;
 }
 
@@ -55,13 +36,4 @@ message Allocate_Order_Push {
     required string order_id   = 2;
     required int32 quantity   = 3;    
     required Error_Code error_code = 4;
-}
-
-message Wechat_Pay_Request {
-    required string order_id = 1;
-}
-
-message Wechat_Pay_Response {
-   optional WechatPay wechat = 1;
-   required Error_Code error_code = 2; 
 }

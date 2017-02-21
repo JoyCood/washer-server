@@ -150,6 +150,11 @@ def start_work(socket):
                 response = order_pb2.Allocate_Order_Push()
                 response.ParseFromString(data)
                 print(response)
+
+                request = order_pb2.Cancel_Order_Request()
+                request.order_id = response.order_id
+                common.send(socket, common_pb2.CANCEL_ORDER, request)
+                continue
                 
                 print("protocol: processing_order")
                 request = order_pb2.Processing_Order_Request()

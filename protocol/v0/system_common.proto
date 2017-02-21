@@ -3,6 +3,7 @@ syntax = "proto2";
 enum System_Protocol {
     ALLOCATE_ORDER = 810000;
     FINISH_ORDER   = 810001;
+    CANCEL_ORDER   = 810002;
 }
 
 enum Client_Protocol {

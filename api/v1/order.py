@@ -181,7 +181,6 @@ def cancel_order(socket, platform, data):
     helper.client_send(socket, common_pb2.CANCEL_ORDER, response)
 
     system_request = system_order_pb2.Cancel_Order_Request()
-    system_request.customer_phone = order['customer_phone']
     system_request.order_id = order_id
     helper.system_send(system_common_pb2.CANCEL_ORDER, system_request)
 
