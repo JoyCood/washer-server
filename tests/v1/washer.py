@@ -145,16 +145,14 @@ def start_work(socket):
                 response = washer_pb2.Start_Work_Response()
                 response.ParseFromString(data)
                 print(response)
+
             elif protocol == common_pb2.ALLOCATE_ORDER:
                 print("protocol: allocate_order")
                 response = order_pb2.Allocate_Order_Push()
                 response.ParseFromString(data)
                 print(response)
 
-                request = order_pb2.Cancel_Order_Request()
-                request.order_id = response.order_id
-                common.send(socket, common_pb2.CANCEL_ORDER, request)
-                continue
+                request = order_pb2.cancel_order_
                 
                 print("protocol: processing_order")
                 request = order_pb2.Processing_Order_Request()
@@ -177,6 +175,16 @@ def start_work(socket):
                 response = order_pb2.Finish_Order_Response()
                 response.ParseFromString(data)
                 print(response)
+
+def stop_work(socket):
+    request = washer_pb2.Stop_Work_Request()    
+    common.send(socket, common_pb2.STOP_WORK, request)
+    body = common.get(socket)
+    if body:
+        (protocol, data) = body
+        response = washer_pb2.Stop_Work_Response()
+        response.ParseFromString(data)
+        print(response)
 
 if __name__ == '__main__':
     filepath = os.path.dirname(os.path.realpath(__file__))[:-8] + "protocol/v1"

@@ -383,14 +383,17 @@ def stop_work(socket, platform, data):
     update = {"$set": {"open": 0}}
     result = Washer.update_one(filter, update)
     if not result.modified_count:
+        print("debug-> v1.washer.stop_work, nick:{} phone:{}, stop work failure".format(washer['nick'], washer['phone']))
         response.error_code = common_pb2.ERROR_STOP_WORK_FAILURE
         helper.client_send(socket, common_pb2.STOP_WORK, response)
         return
     result = Washer.out_workgroup(washer['city_code'], washer['phone'], washer['type'])
     if not result:
+        print("debug-> v1.washer.stop_work, nick:{} phone:{}, out workgroup failure".format(washer['nick'], washer['phone']))
         response.error_code = common_pb2.ERROR_STOP_WORK_FAILURE
         helper.client_send(socket, common_pb2.STOP_WORK, response)
         return
+    print("debug-> v1.washer.stop_work, nick:{} phone:{} stop work success.".format(washer['nick'], washer['phone']))
     response.error_code = common_pb2.SUCCESS
     helper.client_send(socket, common_pb2.STOP_WORK, response)
 
