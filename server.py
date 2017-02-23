@@ -31,6 +31,7 @@ class Washer_Server(socketserver.ThreadingMixIn, socketserver.TCPServer):
         如果Reqeust_Handler发生异常，会关闭socket连接,底层会调用shutdown_request()方法
         如有异常可以在里做一些数据清理，保存
         """
+        print("client socket close..")
         socketserver.TCPServer.handle_error(self, request, client_address)
 
 def _router(socket, api, protocol, sys, data):

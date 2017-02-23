@@ -39,7 +39,7 @@ def login(socket, platform, data):
     if not helper.verify_phone(phone):
         print('error-> [v1.washer.login], phone:{} invalid.'.format(phone))
         response.error_code = common_pb2.ERROR_PHONE_INVALID
-        helper.client_send(socket, platform, common_pb2.LOGIN, response)
+        helper.client_send(socket, common_pb2.LOGIN, response)
         return
     
     if password:
@@ -51,7 +51,7 @@ def login(socket, platform, data):
         return
 
     print('error-> [v1.washer.login], bad request.')
-    response.error_code = common_pb2.ERROR_BADREQEUST
+    response.error_code = common_pb2.ERROR_BAD_REQEUST
     helper.client_send(socket, common_pb2.LOGIN, response)
 
 #密码登录
@@ -91,6 +91,7 @@ def _login(socket, phone, password, uuid):
         "open": washer['open'],
         "socket": socket
     }
+    print("success-> v1.washer._login, phone:{} login success".format(phone))
     Washer.add_online_washer(socket, _washer)
     response.washer.id          = str(washer['_id'])
     response.washer.phone       = washer['phone']
@@ -402,6 +403,7 @@ def fresh_location(socket, platform, data):
     response = washer_pb2.Fresh_Location_Response()
     washer = Washer.get_online_washer(socket)
     if washer is None: #未登录
+        print("error-> v1.washer.fresh_location, not login yet.")
         response.error_code = common_pb2.ERROR_NOT_LOGIN
         helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
         return
@@ -410,14 +412,16 @@ def fresh_location(socket, platform, data):
     request.ParseFromString(data)
     
     if not washer['open']: #没开工的不允许更新工作组中的地理位置
+        print("error-> v1.washer.fresh_location, not start work before fresh location")
         response.error_code = common_pb2.ERROR_NOT_START_WORK
         helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
     else:
+        print("debug-> v1.washer.fresh_location, set washer online")
         washer['city_code'] = request.city_code
         Washer.add_online_washer(socket, washer)
-        return
 
     if washer['orders'] >= common.MAX_ORDERS: #超过所允许接单数
+        print("error-> v1.washer.fresh_location, reach the max orders")
         response.error_code = common_pb2.ERROR_OUT_MAX_ORDERS
         helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
         return
@@ -427,9 +431,11 @@ def fresh_location(socket, platform, data):
     latitude  = request.latitude
     result = Washer.in_workgroup(city_code, longitude, latitude, washer['phone'], washer['type'])
     if not result:
+        print("error-> v1.washer.fresh_location, put washer into workgorup failure")
         response.error_code = common_pb2.ERROR_FRESH_LOCATION_FAILURE
         helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
         return
+    print("success-> v1.washer.fresh_location, fresh location success")
     response.error_code = common_pb2.SUCCESS
     helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
 

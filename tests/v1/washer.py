@@ -146,6 +146,13 @@ def start_work(socket):
                 response.ParseFromString(data)
                 print(response)
 
+                print("protocol: fresh_location")
+                request = washer_pb2.Fresh_Location_Request()
+                request.city_code = 179
+                request.longitude = 120.025806
+                request.latitude  = 30.246185
+                common.send(socket, common_pb2.FRESH_LOCATION, request)
+
             elif protocol == common_pb2.ALLOCATE_ORDER:
                 print("protocol: allocate_order")
                 response = order_pb2.Allocate_Order_Push()
