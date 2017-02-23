@@ -19,7 +19,7 @@ from pymongo.errors import DuplicateKeyError
 def handle(socket, protocol, platform, data):
     handler = route.get(protocol)
     if handler is None:
-        print("protocol:{} handler is not found".format(protocol))
+        print("error-> v1.washer.handle, protocol:{} handler is not found".format(protocol))
         return
     fun = getattr(sys.modules[__name__], handler)
     fun(socket, platform, data)
@@ -37,7 +37,7 @@ def login(socket, platform, data):
     response = washer_pb2.Login_Response()
 
     if not helper.verify_phone(phone):
-        print('phone invalid.')
+        print('error-> [v1.washer.login], phone:{} invalid.'.format(phone))
         response.error_code = common_pb2.ERROR_PHONE_INVALID
         helper.client_send(socket, platform, common_pb2.LOGIN, response)
         return
@@ -50,7 +50,7 @@ def login(socket, platform, data):
         _reconnect(socket, phone, uuid, signature)
         return
 
-    print('bad request.')
+    print('error-> [v1.washer.login], bad request.')
     response.error_code = common_pb2.ERROR_BADREQEUST
     helper.client_send(socket, common_pb2.LOGIN, response)
 
@@ -360,7 +360,7 @@ def start_work(socket, platform, data):
     latitude  = request.latitude
     result = Washer.in_workgroup(city_code, longitude, latitude, washer['phone'], washer['type'])
     if not result: #写入redis失败
-        print("(), add to workgroup failure".format(washer['phone']))
+        print("error-> v1.washer.start_work, phone:{} add to workgroup failure".format(washer['phone']))
         response.error_code = common_pb2.ERROR_START_WORK_FAILURE
         helper.client_send(socket, common_pb2.START_WORK, response)
         return

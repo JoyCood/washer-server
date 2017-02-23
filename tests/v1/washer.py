@@ -152,8 +152,6 @@ def start_work(socket):
                 response.ParseFromString(data)
                 print(response)
 
-                request = order_pb2.cancel_order_
-                
                 print("protocol: processing_order")
                 request = order_pb2.Processing_Order_Request()
                 request.order_id = response.order_id

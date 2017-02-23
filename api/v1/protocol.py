@@ -9,8 +9,6 @@ route = {
     common_pb2.START_WORK: "start_work",
     common_pb2.STOP_WORK: "stop_work",
     common_pb2.FINISH_ORDER: "finish_order",
-    common_pb2.WECHAT_PAY: "wechat_pay",
-    common_pb2.ALIPAY: "alipay",
     common_pb2.PROCESSING_ORDER: "processing_order",
     common_pb2.ORDER_FEEDBACK: "order_feedback",
     common_pb2.CANCEL_ORDER: "cancel_order"

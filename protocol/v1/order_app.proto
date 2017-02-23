@@ -1,14 +1,5 @@
 syntax = "proto2";
-import "common_1.proto";
-
-//更新成清洗状态
-message Processing_Order_Request {
-    required string order_id = 1;
-}
-
-message Processing_Order_Response {
-    required Error_Code error_code = 1;
-}
+import "common_app.proto";
 
 //更新完成状态
 message Finish_Order_Request {
@@ -25,16 +16,6 @@ message Cancel_Order_Request {
 }
 
 message Cancel_Order_Response {
-    required Error_Code error_code = 1;
-}
-
-//订单评分
-message Order_Feedback_Request {
-    required string order_id = 1;
-    required int32  score    = 2;
-}
-
-message Order_Feedback_Response {
     required Error_Code error_code = 1;
 }
 

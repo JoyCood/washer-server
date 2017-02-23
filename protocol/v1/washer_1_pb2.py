@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='washer_1.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\x0ewasher_1.proto\x1a\x0e\x63ommon_1.proto\"<\n\x18Request_Authcode_Request\x12\r\n\x05phone\x18\x01 \x02(\t\x12\x11\n\tsignature\x18\x02 \x02(\t\"N\n\x19Request_Authcode_Response\x12\x10\n\x08\x61uthcode\x18\x01 \x01(\x05\x12\x1f\n\nerror_code\x18\x02 \x02(\x0e\x32\x0b.Error_Code\"\xa5\x01\n\x10Register_Request\x12\r\n\x05phone\x18\x01 \x02(\t\x12\x10\n\x08\x61uthcode\x18\x02 \x02(\x05\x12\x10\n\x08password\x18\x03 \x02(\t\x12\x11\n\tpassword2\x18\x04 \x02(\t\x12\x0c\n\x04nick\x18\x05 \x02(\t\x12\x11\n\tsignature\x18\x06 \x02(\t\x12\x1a\n\x04type\x18\x07 \x02(\x0e\x32\x0c.Washer_Type\x12\x0e\n\x06\x61vatar\x18\x08 \x01(\t\"M\n\x11Register_Response\x12\x17\n\x06washer\x18\x01 \x01(\x0b\x32\x07.Washer\x12\x1f\n\nerror_code\x18\x02 \x02(\x0e\x32\x0b.Error_Code\"Q\n\rLogin_Request\x12\r\n\x05phone\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\x0c\n\x04uuid\x18\x03 \x01(\t\x12\x11\n\tsignature\x18\x04 \x01(\t\"J\n\x0eLogin_Response\x12\x17\n\x06washer\x18\x01 \x01(\x0b\x32\x07.Washer\x12\x1f\n\nerror_code\x18\x03 \x02(\x0e\x32\x0b.Error_Code\"M\n\x17Verify_Authcode_Request\x12\r\n\x05phone\x18\x01 \x02(\t\x12\x10\n\x08\x61uthcode\x18\x02 \x02(\x05\x12\x11\n\tsignature\x18\x03 \x02(\t\";\n\x18Verify_Authcode_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"P\n\x16\x46resh_Location_Request\x12\x11\n\tcity_code\x18\x01 \x02(\x05\x12\x11\n\tlongitude\x18\x02 \x02(\x02\x12\x10\n\x08latitude\x18\x03 \x02(\x02\":\n\x17\x46resh_Location_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"L\n\x12Start_Work_Request\x12\x11\n\tcity_code\x18\x01 \x02(\x05\x12\x11\n\tlongitude\x18\x02 \x02(\x02\x12\x10\n\x08latitude\x18\x03 \x02(\x02\"6\n\x13Start_Work_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"\x13\n\x11Stop_Work_Request\"5\n\x12Stop_Work_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"\x10\n\x0eLogout_Request\"\x11\n\x0fLogout_Response')
+  serialized_pb=_b('\n\x0ewasher_1.proto\x1a\x0e\x63ommon_1.proto\"<\n\x18Request_Authcode_Request\x12\r\n\x05phone\x18\x01 \x02(\t\x12\x11\n\tsignature\x18\x02 \x02(\t\"N\n\x19Request_Authcode_Response\x12\x10\n\x08\x61uthcode\x18\x01 \x01(\x05\x12\x1f\n\nerror_code\x18\x02 \x02(\x0e\x32\x0b.Error_Code\"\xa5\x01\n\x10Register_Request\x12\r\n\x05phone\x18\x01 \x02(\t\x12\x10\n\x08\x61uthcode\x18\x02 \x02(\x05\x12\x10\n\x08password\x18\x03 \x02(\t\x12\x11\n\tpassword2\x18\x04 \x02(\t\x12\x0c\n\x04nick\x18\x05 \x02(\t\x12\x11\n\tsignature\x18\x06 \x02(\t\x12\x1a\n\x04type\x18\x07 \x02(\x0e\x32\x0c.Washer_Type\x12\x0e\n\x06\x61vatar\x18\x08 \x01(\t\"M\n\x11Register_Response\x12\x17\n\x06washer\x18\x01 \x01(\x0b\x32\x07.Washer\x12\x1f\n\nerror_code\x18\x02 \x02(\x0e\x32\x0b.Error_Code\"Q\n\rLogin_Request\x12\r\n\x05phone\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x01(\t\x12\x0c\n\x04uuid\x18\x03 \x01(\t\x12\x11\n\tsignature\x18\x04 \x01(\t\"J\n\x0eLogin_Response\x12\x17\n\x06washer\x18\x01 \x01(\x0b\x32\x07.Washer\x12\x1f\n\nerror_code\x18\x03 \x02(\x0e\x32\x0b.Error_Code\"M\n\x17Verify_Authcode_Request\x12\r\n\x05phone\x18\x01 \x02(\t\x12\x10\n\x08\x61uthcode\x18\x02 \x02(\x05\x12\x11\n\tsignature\x18\x03 \x02(\t\";\n\x18Verify_Authcode_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"P\n\x16\x46resh_Location_Request\x12\x11\n\tcity_code\x18\x01 \x02(\x05\x12\x11\n\tlongitude\x18\x02 \x02(\x02\x12\x10\n\x08latitude\x18\x03 \x02(\x02\":\n\x17\x46resh_Location_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"L\n\x12Start_Work_Request\x12\x11\n\tcity_code\x18\x01 \x02(\x05\x12\x11\n\tlongitude\x18\x02 \x02(\x02\x12\x10\n\x08latitude\x18\x03 \x02(\x02\"6\n\x13Start_Work_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"\x13\n\x11Stop_Work_Request\"5\n\x12Stop_Work_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code\"\x10\n\x0eLogout_Request\"2\n\x0fLogout_Response\x12\x1f\n\nerror_code\x18\x01 \x02(\x0e\x32\x0b.Error_Code')
   ,
   dependencies=[common__1__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -626,6 +626,13 @@ _LOGOUT_RESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='error_code', full_name='Logout_Response.error_code', index=0,
+      number=1, type=14, cpp_type=8, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -639,7 +646,7 @@ _LOGOUT_RESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1092,
-  serialized_end=1109,
+  serialized_end=1142,
 )
 
 _REQUEST_AUTHCODE_RESPONSE.fields_by_name['error_code'].enum_type = common__1__pb2._ERROR_CODE
@@ -652,6 +659,7 @@ _VERIFY_AUTHCODE_RESPONSE.fields_by_name['error_code'].enum_type = common__1__pb
 _FRESH_LOCATION_RESPONSE.fields_by_name['error_code'].enum_type = common__1__pb2._ERROR_CODE
 _START_WORK_RESPONSE.fields_by_name['error_code'].enum_type = common__1__pb2._ERROR_CODE
 _STOP_WORK_RESPONSE.fields_by_name['error_code'].enum_type = common__1__pb2._ERROR_CODE
+_LOGOUT_RESPONSE.fields_by_name['error_code'].enum_type = common__1__pb2._ERROR_CODE
 DESCRIPTOR.message_types_by_name['Request_Authcode_Request'] = _REQUEST_AUTHCODE_REQUEST
 DESCRIPTOR.message_types_by_name['Request_Authcode_Response'] = _REQUEST_AUTHCODE_RESPONSE
 DESCRIPTOR.message_types_by_name['Register_Request'] = _REGISTER_REQUEST

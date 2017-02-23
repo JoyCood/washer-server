@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-enum Protocol {
+enum HWProtocol {
     FINISH_ORDER       = 120000; //清洗完毕，完成订单
     CANCEL_ORDER       = 120001; //取消订单
     ALLOCATE_ORDER     = 120002; //分配订单(当有用户下单时通知到商家)
@@ -42,7 +42,7 @@ enum Washer_Type {
     COMPANY  = 2; //企业
 }
 
-enum Category {
+enum HWCategory {
     CLOTHES_NORMAL = 1; //普通衣物
     CLOTHES_JACKET = 2; //夹克
     SHOSE_NORMAL   = 3; //鞋子
