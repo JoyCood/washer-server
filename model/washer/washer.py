@@ -36,9 +36,9 @@ class Washer(object):
     @classmethod
     def remove_online_washer(cls, socket):
         try:
-            washer = cls.online_washer[socket]
-            del _washer_map[washer['phone']]
-            del _online_washer[socket]
+            washer = cls._online_washer[socket]
+            del cls._washer_map[washer['phone']]
+            del cls._online_washer[socket]
         except (TypeError, KeyError):
             pass
         return True

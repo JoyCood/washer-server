@@ -116,6 +116,40 @@ def finish_order(socket, platform, data):
     system_request.customer_phone = order['customer_phone']
     helper.system_send(system_common_pb2.FINISH_ORDER, system_request)
 
+#订单祥情
+def order_detail(socket, platform, data):
+    request = order_pb2.Order_Detail_Request()
+    request.ParseFromString(data)
+    order_id = request.order_id.strip()
+
+    response = order_pb2.Order_Detail_Response()
+    washer = Washer.get_online_washer(socket)
+    if washer is None:
+        print("error-> v1.order.order_detail: not logined washer")
+        response.error_code = common_pb2.ERROR_NOT_LOGIN
+        helper.client_send(socket, common_pb2.ORDER_DETAIL, response)
+        return
+    filter = {
+        "_id": ObjectId(order_id),
+        "washer_phone": washer['phone']    
+    }
+    result = Order.find_one(filter)
+    if not result:
+        print("error-> v1.order.order_detail: order_id:{} not found".format(order_id))
+        response.error_code = common_pb2.ERROR_ORDER_NOT_FOUND
+        helper.client_send(socket, common_pb2.ORDER_DETAIL, response)
+        return
+    print("success-> v1.order.order_detail, order_id:{} detail:{}".format(order_id, result))
+    response.order.id = order_id
+    response.order.quantity = result['quantity']
+    response order.price = result['price']
+    response.order.total_fee = result['total_fee']
+    response.order.discount = result['discount']
+    response.order.status = result['status']
+    response.order.finish_time = result['finish_time']
+    response.order.pay_time = result['pay_time']
+    helper.client_send(socket, common_pb2.ORDER_DETAIL, response)
+
 #历史订单
 def history_order(socket, platform, data):
     response = order_pb2.History_Order_Response()

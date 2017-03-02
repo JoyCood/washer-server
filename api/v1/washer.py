@@ -380,11 +380,16 @@ def stop_work(socket, platform, data):
         response.error_code = common_pb2.ERROR_NOT_LOGIN
         helper.client_send(socket, common_pb2.STOP_WORK, response)
         return
+    if 'open' in washer and washer['open'] == 0:
+        print("debug-> v1.washer.stop_work, nick:{} phone:{} work already stoped.".format(washer['nick'], washer['phone']))
+        response.error_code = common_pb2.SUCCESS
+        helper.client_send(socket, common_pb2.STOP_WORK, response)
+        return
     filter = {"phone": washer['phone']}
     update = {"$set": {"open": 0}}
     result = Washer.update_one(filter, update)
     if not result.modified_count:
-        print("debug-> v1.washer.stop_work, nick:{} phone:{}, stop work failure".format(washer['nick'], washer['phone']))
+        print("debug-> v1.washer.stop_work, nick:{} phone:{}, update database failure, stop work failure".format(washer['nick'], washer['phone']))
         response.error_code = common_pb2.ERROR_STOP_WORK_FAILURE
         helper.client_send(socket, common_pb2.STOP_WORK, response)
         return
@@ -395,6 +400,8 @@ def stop_work(socket, platform, data):
         helper.client_send(socket, common_pb2.STOP_WORK, response)
         return
     print("debug-> v1.washer.stop_work, nick:{} phone:{} stop work success.".format(washer['nick'], washer['phone']))
+    washer['open'] = 0
+    Washer.add_online_washer(socket, washer)
     response.error_code = common_pb2.SUCCESS
     helper.client_send(socket, common_pb2.STOP_WORK, response)
 
@@ -403,7 +410,7 @@ def fresh_location(socket, platform, data):
     response = washer_pb2.Fresh_Location_Response()
     washer = Washer.get_online_washer(socket)
     if washer is None: #未登录
-        print("error-> v1.washer.fresh_location, not login yet.")
+        print("error-> v1.washer.fresh_location, can not fresh location before login.")
         response.error_code = common_pb2.ERROR_NOT_LOGIN
         helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
         return
@@ -412,9 +419,10 @@ def fresh_location(socket, platform, data):
     request.ParseFromString(data)
     
     if not washer['open']: #没开工的不允许更新工作组中的地理位置
-        print("error-> v1.washer.fresh_location, not start work before fresh location")
+        print("error-> v1.washer.fresh_location, can not fresh location before start work.")
         response.error_code = common_pb2.ERROR_NOT_START_WORK
         helper.client_send(socket, common_pb2.FRESH_LOCATION, response)
+        return
     else:
         print("debug-> v1.washer.fresh_location, set washer online")
         washer['city_code'] = request.city_code
@@ -449,9 +457,10 @@ def logout(socket, platform, data):
         Washer.update_one(filter, update)
         Washer.out_workgroup(washer['city_code'], washer['phone'], washer['type'])
         Washer.remove_online_washer(socket)
+    print("success-> v1.washer.logout, phone:{}".format(washer['phone']))
     response.error_code = common_pb2.SUCCESS
     helper.client_send(socket, common_pb2.LOGOUT, response)
-    socket.close() 
+    helper.socket_close(socket)
 
 #生成令牌
 def _make_secret(phone, uuid):

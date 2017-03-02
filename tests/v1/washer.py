@@ -15,8 +15,8 @@ def fresh_location(socket):
     pb.latitude  = 30.25924446
     pb.city_code = 179
 
-    common.send(socket, washer_pb2.FRESH_LOCATION, pb)
-    body = common.get(socket)
+    common.send(socket, common_pb2.FRESH_LOCATION, pb)
+    (protocol, body) = common.get(socket)
     if body:
         resp = washer_pb2.Fresh_Location_Response()
         resp.ParseFromString(body)
@@ -111,6 +111,15 @@ def login(socket):
         return True
     print('login failure')
 
+def logout(socket):
+    request = washer_pb2.Logout_Request()
+    common.send(socket, common_pb2.LOGOUT, request)
+    (_, body) = common.get(socket)
+    if body:
+        response = washer_pb2.Logout_Response()
+        response.ParseFromString(body)
+        print(response)
+
 def wechat_pay(socket):
     login(socket)
     request = order_pb2.Wechat_Pay_Request()
@@ -152,6 +161,7 @@ def start_work(socket):
                 request.longitude = 120.025806
                 request.latitude  = 30.246185
                 common.send(socket, common_pb2.FRESH_LOCATION, request)
+                break
 
             elif protocol == common_pb2.ALLOCATE_ORDER:
                 print("protocol: allocate_order")

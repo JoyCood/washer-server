@@ -34,6 +34,8 @@ enum Error_Code {
     ERROR_PROCESSING_FAILURE     = 100013; //清洗失败
     ERROR_FINISH_ORDER_FAILURE   = 100014; //送回失败
     ERROR_ORDER_FEEDBACK_FAILURE = 100015; //订单评分失败
+    ERROR_NOT_START_WORK         = 100016; //未开工
+    ERROR_STOP_WORK_FAILURE      = 100017; //收工失败
     ERROR_BAD_REQEUST            = 100100; //非法请求
 }
 

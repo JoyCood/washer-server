@@ -17,6 +17,13 @@ def client_send(sock, protocol, data):
         print('socket except happend.')
         sock.close()
 
+def socket_close(sock):
+    try:
+        sock.shutdown(socket.SHUT_WR)
+    except socket.error:
+        pass
+    sock.close()
+
 def system_send(protocol, data):
     (body_len, packet) = pack(protocol, data)
     api = 0
