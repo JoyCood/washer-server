@@ -1,5 +1,5 @@
 syntax = "proto2";
-import "common_app.proto";
+import "AppCommon.proto";
 
 //更新成清洗状态
 message Processing_Order_Request {
@@ -38,6 +38,16 @@ message Order_Feedback_Response {
     required Error_Code error_code = 1;
 }
 
+//订单祥情
+message Order_Detail_Request {
+    required string order_id = 1; 
+}
+
+message Order_Detail_Response {
+    optional Order order = 1;
+    required Error_Code error_code = 2;
+}
+
 //历史订单列表
 message History_Order_Request {
     optional int32 offset = 1;
@@ -45,7 +55,7 @@ message History_Order_Request {
 }
 
 message History_Order_Response {
-    optional Order order = 1;
+    repeated Order order = 1;
     required Error_Code error_code = 2;
 }
 

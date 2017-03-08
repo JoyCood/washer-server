@@ -1,5 +1,5 @@
 syntax = "proto2";
-import "common_app.proto";
+import "AppCommon.proto";
 
 //请求验证码
 message Request_Authcode_Request {

@@ -7,6 +7,7 @@ enum HWProtocol {
     PROCESSING_ORDER   = 120003; //清洗
     ORDER_FEEDBACK     = 120004; //商家对订单评分
     HISTORY_ORDER      = 120005; //历史订单
+    ORDER_DETAIL       = 120006; //订单祥情
 
     REGISTER           = 130000; //注册
     LOGIN              = 130001; //登录及断线重连
@@ -15,6 +16,7 @@ enum HWProtocol {
     START_WORK         = 130004; //开工(只有开工了才可接单) 
     FRESH_LOCATION     = 130005; //更新地理位置
     STOP_WORK          = 130006; //不干了(停止接单)
+    LOGOUT             = 130007; //登出
 }
 
 enum Error_Code {
@@ -37,6 +39,9 @@ enum Error_Code {
     ERROR_ORDER_FEEDBACK_FAILURE = 100015; //订单评分失败
     ERROR_NOT_START_WORK         = 100016; //未开工
     ERROR_STOP_WORK_FAILURE      = 100017; //收工失败
+    ERROR_ORDER_STATUS_WRONG     = 100018; //订单状态错误 
+    ERROR_ORDER_NOT_FOUND        = 100019; //订单不存在
+    ERROR_ALREADY_FEEDBACK       = 100020; //已经评过分了
     ERROR_BAD_REQEUST            = 100100; //非法请求
 }
 
@@ -89,15 +94,18 @@ message Washer {
 }
 
 message Order {
-    optional string id               = 1;
-    optional string washer_nick      = 2;
-    optional Washer_Type washer_type = 3;
-    optional int32 quantity          = 4;
-    optional float price             = 5;
-    optional float total_fee         = 6;
-    optional float discount          = 7;
-    optional Order_Status status     = 8;
-    optional int32 order_time        = 9;
-    optional int32 finish_time       = 10;
-    optional int32 pay_time          = 11;
+    optional string id               = 1; //订单ID
+    optional string washer_nick      = 2; //商家昵称
+    optional string washer_avatar    = 3; //商家头像
+    optional Washer_Type washer_type = 4; //商家类型
+    optional int32 quantity          = 5; //数量
+    optional float price             = 6; //价格
+    optional float total_fee         = 7; //总价
+    optional float discount          = 8; //优惠价格
+    optional Order_Status status     = 9; //订单状态
+    optional int32 order_time        = 10; //下单时间
+    optional int32 allocate_time     = 11; //分配商家时间
+    optional int32 finish_time       = 12; //订单完成时间
+    optional int32 pay_time          = 13; //支付时间
 }
+
