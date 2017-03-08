@@ -245,6 +245,7 @@ def order_feedback(socket, platform, data):
     response = order_pb2.Order_Feedback_Response()
     washer = Washer.get_online_washer(socket)
     if washer is None:
+        print("debug-> v1.order.order_feedback, not logined user")
         response.error_code = common_pb2.ERROR_NOT_LOGIN
         helper.client_send(socket, common_pb2.ORDER_FEEDBACK, response)
         return
@@ -256,21 +257,37 @@ def order_feedback(socket, platform, data):
 
     filter = {
         "_id": ObjectId(order_id),
-        "washer_phone": washer['phone'],
-        "status": common_pb2.FINISH,
-        "washer_score": 0
+        "washer_phone": washer['phone']
     }
+
+    order = Order.find_one(filter)
+    if order is None:
+        response.error_code = common_pb2.ERROR_ORDER_NOT_FOUND
+        helper.client_send(socket, common_pb2.ORDER_FEEDBACK, response)
+        return
+    if order['status'] != common_pb2.FINISH:
+        response.error_code = common_pb2.ERROR_ORDER_STATUS_WRONG
+        helper.client_send(socket, common_pb2.ORDER_FEEDBACK, response)
+        return
+
+    if order['washer_score'] != 0:
+        response.error_code = common_pb2.ERROR_ALREADY_FEEDBACK
+        helper.client_send(socket, common_pb2.ORDER_FEEDBACK, response)
+        return
+
+    filter.update({"status": common_pb2.FINISH, "washer_score": 0})
     update = {
         "$set": {
             "washer_score": score     
         }        
     }
-    print("debug-> v1.order.order_feedback, {}".format(filter))
     result = Order.update_one(filter, update)
     if not result.modified_count:
+        print("debug-> v1.order.order_feedback, order_id:{} update failure.".format(order_id))
         response.error_code = common_pb2.ERROR_ORDER_FEEDBACK_FAILURE
         helper.client_send(socket, common_pb2.ORDER_FEEDBACK, response)
         return
+    print("debug-> v1.order.order_feedback, order_id:{}, feedback success.".format(order_id))
     response.error_code = common_pb2.SUCCESS
     helper.client_send(socket, common_pb2.ORDER_FEEDBACK, response)
 

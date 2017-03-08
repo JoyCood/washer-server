@@ -167,11 +167,6 @@ def start_work(socket):
                 request.order_id = response.order_id
                 common.send(socket, common_pb2.FINISH_ORDER, request)
 
-                print("protocol: order_feedback")
-                request = order_pb2.Order_Feedback_Request()
-                request.order_id = response.order_id
-                request.score = 5
-                common.send(socket, common_pb2.ORDER_FEEDBACK, request)
                 
             elif protocol == common_pb2.FINISH_ORDER:
                 print("protocol: finish_order" )
@@ -215,6 +210,17 @@ def cancel_order(socket):
     response.ParseFromString(data)
     print(response)
 
+def order_feedback(socket):
+    print("protocol: order_feedback")
+    request = order_pb2.Order_Feedback_Request()
+    request.order_id = "58bfabef7f439e2303a20426"
+    request.score = 5
+    common.send(socket, common_pb2.ORDER_FEEDBACK, request)
+    (protocol, data) = common.get(socket)
+    response = order_pb2.Order_Feedback_Response()
+    response.ParseFromString(data)
+    print(response)
+
 if __name__ == '__main__':
     filepath = os.path.dirname(os.path.realpath(__file__))[:-8] + "protocol/v1"
     sys.path.append(filepath)
@@ -223,6 +229,7 @@ if __name__ == '__main__':
     import order_1_pb2  as order_pb2
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((common.WASHER_BIND_HOST, common.WASHER_BIND_PORT))
+    
     sys.stdout.write("%")
 
     while True:

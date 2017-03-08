@@ -39,8 +39,9 @@ enum Error_Code {
     ERROR_ORDER_FEEDBACK_FAILURE = 100015; //订单评分失败
     ERROR_NOT_START_WORK         = 100016; //未开工
     ERROR_STOP_WORK_FAILURE      = 100017; //收工失败
-    ERROR_ORDER_STATUS_WRONG     = 100018; //只能取消处理分配状态的订单 
+    ERROR_ORDER_STATUS_WRONG     = 100018; //订单状态错误 
     ERROR_ORDER_NOT_FOUND        = 100019; //订单不存在
+    ERROR_ALREADY_FEEDBACK       = 100020; //已经评过分了
     ERROR_BAD_REQEUST            = 100100; //非法请求
 }
 
