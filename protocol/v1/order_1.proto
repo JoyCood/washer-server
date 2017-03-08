@@ -55,7 +55,7 @@ message History_Order_Request {
 }
 
 message History_Order_Response {
-    optional Order order = 1;
+    repeated Order order = 1;
     required Error_Code error_code = 2;
 }
 

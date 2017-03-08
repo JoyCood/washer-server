@@ -142,12 +142,13 @@ def order_detail(socket, platform, data):
     print("success-> v1.order.order_detail, order_id:{} detail:{}".format(order_id, result))
     response.order.id = order_id
     response.order.quantity = result['quantity']
-    response order.price = result['price']
+    response.order.price = result['price']
     response.order.total_fee = result['total_fee']
     response.order.discount = result['discount']
     response.order.status = result['status']
     response.order.finish_time = result['finish_time']
     response.order.pay_time = result['pay_time']
+    response.error_code = common_pb2.SUCCESS
     helper.client_send(socket, common_pb2.ORDER_DETAIL, response)
 
 #历史订单
@@ -156,7 +157,7 @@ def history_order(socket, platform, data):
     
     washer = Washer.get_online_washer(socket)
     if washer is None:
-        response.error_code = order_pb2.ERROR_NOT_LOGIN
+        response.error_code = common_pb2.ERROR_NOT_LOGIN
         helper.client_send(socket, common_pb2.HISTORY_ORDER, response)
         return
 
@@ -176,8 +177,13 @@ def history_order(socket, platform, data):
         order.status = item['status']
         order.quantity = item['quantity']
         order.order_time = item['order_time']
-        order.washer_nick = item['washer_nick']
-        order.washer_avatar = item['washer_avatar']
+        order.price = item['price']
+        order.total_fee = item['total_fee']
+        order.discount = item['discount']
+        order.finish_time = item['finish_time']
+        order.pay_time = item['pay_time']
+        order.allocate_time = item['allocate_time']
+    response.error_code = common_pb2.SUCCESS
     helper.client_send(socket, common_pb2.HISTORY_ORDER, response)
 
 #取消订单
@@ -185,6 +191,7 @@ def cancel_order(socket, platform, data):
     response = order_pb2.Cancel_Order_Response()
     washer = Washer.get_online_washer(socket)
     if washer is None:
+        print("debug-> v1.order.cancel_order, not logined user")
         response.error_code = common_pb2.ERROR_NOT_LOGIN
         helper.client_send(socket, common_pb2.CANCEL_ORDER, response)
         return
@@ -193,24 +200,39 @@ def cancel_order(socket, platform, data):
     request.ParseFromString(data)
     order_id = request.order_id.strip()
     now = int(time.time())
-
+    
     filter = {
         "_id": ObjectId(order_id),
-        "washer_phone": washer['phone'],
-        "status": common_pb2.DISTRIBUTED
+        "washer_phone": washer['phone']       
     }
+    
+    order = Order.find_one(filter)
+    if order is None:
+        print("debug-> v1.order.cancel_order, order_id:{} not found".format(washer['nick'], washer['phone'], order_id))
+        response.error_code = common_pb2.ERROR_ORDER_NOT_FOUND
+        helper.client_send(socket, common_pb2.CANCEL_ORDER, response)
+        return
+    if order['status'] != common_pb2.DISTRIBUTED:
+        print("debug-> v1.order.cancel_order, order_id:{}, order_status:{} not != DISTRIBUTED".format(order_id, order['status']))
+        response.error_code = common_pb2.ERROR_ORDER_STATUS_WRONG
+        helper.client_send(socket, common_pb2.CANCEL_ORDER, response)
+        return
+
+    filter.update({"status": common_pb2.DISTRIBUTED})
     update = {
         "$set": {
             "status": common_pb2.CANCELED, 
             "cancel_time": now,
-            "cancel_by": 2
+            "cancel_by": washer['type']
         }
     }
     result = Order.update_one(filter, update)
     if not result.modified_count:
+        print("debug-> v1.order.cancel_order, order_id:{} update failure".format(order_id))
         response.error_code = common_pb2.ERROR_CANCEL_ORDER_FAILURE
         helper.client_send(socket, common_pb2.CANCEL_ORDER, response)
         return
+    print("debug-> v1.order.cancel_order, order_id:{} cancel success".format(order_id))
     response.error_code = common_pb2.SUCCESS
     helper.client_send(socket, common_pb2.CANCEL_ORDER, response)
 

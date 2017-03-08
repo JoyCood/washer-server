@@ -120,18 +120,6 @@ def logout(socket):
         response.ParseFromString(body)
         print(response)
 
-def wechat_pay(socket):
-    login(socket)
-    request = order_pb2.Wechat_Pay_Request()
-    request.order_id = '123456677756443'
-    common.send(socket, common_pb2.WECHAT_PAY, request)
-    (protocol, body) = common.get(socket)
-    if body:
-        response = order_pb2.Wechat_Pay_Response()
-        response.ParseFromString(body)
-        print(response)
-
-    
 def start_work(socket):
     result = login(socket)
     if result is None:
@@ -200,6 +188,32 @@ def stop_work(socket):
         response = washer_pb2.Stop_Work_Response()
         response.ParseFromString(data)
         print(response)
+
+def history_order(socket):
+    request = order_pb2.History_Order_Request()
+    common.send(socket, common_pb2.HISTORY_ORDER, request)
+    (protocol, data) = common.get(socket)
+    response = order_pb2.History_Order_Response()
+    response.ParseFromString(data)
+    print(response)
+
+def order_detail(socket):
+    request = order_pb2.Order_Detail_Request()
+    request.order_id = "58bfabef7f439e2303a20426"
+    common.send(socket, common_pb2.ORDER_DETAIL, request)
+    (protocol, data) = common.get(socket)
+    response = order_pb2.Order_Detail_Response()
+    response.ParseFromString(data)
+    print(response)
+
+def cancel_order(socket):
+    request = order_pb2.Cancel_Order_Request()
+    request.order_id = "58bfad717f439e23288ac4e2"
+    common.send(socket, common_pb2.CANCEL_ORDER, request)
+    (protocol, data) = common.get(socket)
+    response = order_pb2.Cancel_Order_Response()
+    response.ParseFromString(data)
+    print(response)
 
 if __name__ == '__main__':
     filepath = os.path.dirname(os.path.realpath(__file__))[:-8] + "protocol/v1"

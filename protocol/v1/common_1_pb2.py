@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='common_1.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\x0e\x63ommon_1.proto\"\x8a\x01\n\x08\x43ustomer\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x11\n\tcity_code\x18\x06 \x01(\x05\x12\x11\n\tlongitude\x18\x07 \x01(\x02\x12\x10\n\x08latitude\x18\x08 \x01(\x02\"\xf7\x01\n\x06Washer\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x10\n\x08reg_time\x18\x06 \x01(\x05\x12\x12\n\nlast_login\x18\x07 \x01(\x05\x12\x0e\n\x06status\x18\x08 \x01(\x05\x12\x10\n\x08\x64istance\x18\t \x01(\x02\x12\x11\n\tlongitude\x18\n \x01(\x02\x12\x10\n\x08latitude\x18\x0b \x01(\x02\x12\x0e\n\x06secret\x18\x0c \x01(\t\x12\x0c\n\x04open\x18\r \x01(\x08\x12\x1a\n\x04type\x18\x0e \x01(\x0e\x32\x0c.Washer_Type\"\xeb\x01\n\x05Order\x12\n\n\x02id\x18\x01 \x01(\t\x12\x13\n\x0bwasher_nick\x18\x02 \x01(\t\x12!\n\x0bwasher_type\x18\x03 \x01(\x0e\x32\x0c.Washer_Type\x12\x10\n\x08quantity\x18\x04 \x01(\x05\x12\r\n\x05price\x18\x05 \x01(\x02\x12\x11\n\ttotal_fee\x18\x06 \x01(\x02\x12\x10\n\x08\x64iscount\x18\x07 \x01(\x02\x12\x1d\n\x06status\x18\x08 \x01(\x0e\x32\r.Order_Status\x12\x12\n\norder_time\x18\t \x01(\x05\x12\x13\n\x0b\x66inish_time\x18\n \x01(\x05\x12\x10\n\x08pay_time\x18\x0b \x01(\x05*\x89\x02\n\x08Protocol\x12\x12\n\x0c\x46INISH_ORDER\x10\xc0\xa9\x07\x12\x12\n\x0c\x43\x41NCEL_ORDER\x10\xc1\xa9\x07\x12\x14\n\x0e\x41LLOCATE_ORDER\x10\xc2\xa9\x07\x12\x16\n\x10PROCESSING_ORDER\x10\xc3\xa9\x07\x12\x14\n\x0eORDER_FEEDBACK\x10\xc4\xa9\x07\x12\x0e\n\x08REGISTER\x10\xd0\xf7\x07\x12\x0b\n\x05LOGIN\x10\xd1\xf7\x07\x12\x16\n\x10REQUEST_AUTHCODE\x10\xd2\xf7\x07\x12\x15\n\x0fVERIFY_AUTHCODE\x10\xd3\xf7\x07\x12\x10\n\nSTART_WORK\x10\xd4\xf7\x07\x12\x14\n\x0e\x46RESH_LOCATION\x10\xd5\xf7\x07\x12\x0f\n\tSTOP_WORK\x10\xd6\xf7\x07\x12\x0c\n\x06LOGOUT\x10\xd7\xf7\x07*\xbe\x04\n\nError_Code\x12\x0b\n\x07SUCCESS\x10\x00\x12\x1c\n\x16\x45RROR_PASSWORD_INVALID\x10\xa0\x8d\x06\x12\x1e\n\x18\x45RROR_PASSWORD_NOT_EQUAL\x10\xa1\x8d\x06\x12\x18\n\x12\x45RROR_WASHER_EXIST\x10\xa2\x8d\x06\x12\x1c\n\x16\x45RROR_AUTHCODE_INVALID\x10\xa3\x8d\x06\x12\x1c\n\x16\x45RROR_AUTHCODE_EXPIRED\x10\xa4\x8d\x06\x12\x19\n\x13\x45RROR_PHONE_INVALID\x10\xa5\x8d\x06\x12\x1c\n\x16\x45RROR_WASHER_NOT_FOUND\x10\xa6\x8d\x06\x12\x1d\n\x17\x45RROR_SIGNATURE_EXPIRED\x10\xa7\x8d\x06\x12\x1d\n\x17\x45RROR_SIGNATURE_INVALID\x10\xa8\x8d\x06\x12\x13\n\rERROR_KICKOUT\x10\xa9\x8d\x06\x12\x18\n\x12\x45RROR_OPEN_FAILURE\x10\xaa\x8d\x06\x12\x18\n\x12\x45RROR_ALREAD_START\x10\xab\x8d\x06\x12\x15\n\x0f\x45RROR_NOT_LOGIN\x10\xac\x8d\x06\x12\x1e\n\x18\x45RROR_PROCESSING_FAILURE\x10\xad\x8d\x06\x12 \n\x1a\x45RROR_FINISH_ORDER_FAILURE\x10\xae\x8d\x06\x12\"\n\x1c\x45RROR_ORDER_FEEDBACK_FAILURE\x10\xaf\x8d\x06\x12\x1a\n\x14\x45RROR_NOT_START_WORK\x10\xb0\x8d\x06\x12\x1d\n\x17\x45RROR_STOP_WORK_FAILURE\x10\xb1\x8d\x06\x12\x17\n\x11\x45RROR_BAD_REQEUST\x10\x84\x8e\x06*(\n\x0bWasher_Type\x12\x0c\n\x08PERSONAL\x10\x01\x12\x0b\n\x07\x43OMPANY\x10\x02*D\n\x08\x43\x61tegory\x12\x12\n\x0e\x43LOTHES_NORMAL\x10\x01\x12\x12\n\x0e\x43LOTHES_JACKET\x10\x02\x12\x10\n\x0cSHOSE_NORMAL\x10\x03*a\n\x0cOrder_Status\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\x0f\n\x0b\x44ISTRIBUTED\x10\x01\x12\x0e\n\nPROCESSING\x10\x02\x12\n\n\x06\x46INISH\x10\x03\x12\t\n\x05PAYED\x10\x04\x12\x0c\n\x08\x43\x41NCELED\x10\x05')
+  serialized_pb=_b('\n\x0e\x63ommon_1.proto\"\x8a\x01\n\x08\x43ustomer\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x11\n\tcity_code\x18\x06 \x01(\x05\x12\x11\n\tlongitude\x18\x07 \x01(\x02\x12\x10\n\x08latitude\x18\x08 \x01(\x02\"\xf7\x01\n\x06Washer\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x0c\n\x04nick\x18\x03 \x01(\t\x12\x0e\n\x06\x61vatar\x18\x04 \x01(\t\x12\r\n\x05level\x18\x05 \x01(\x02\x12\x10\n\x08reg_time\x18\x06 \x01(\x05\x12\x12\n\nlast_login\x18\x07 \x01(\x05\x12\x0e\n\x06status\x18\x08 \x01(\x05\x12\x10\n\x08\x64istance\x18\t \x01(\x02\x12\x11\n\tlongitude\x18\n \x01(\x02\x12\x10\n\x08latitude\x18\x0b \x01(\x02\x12\x0e\n\x06secret\x18\x0c \x01(\t\x12\x0c\n\x04open\x18\r \x01(\x08\x12\x1a\n\x04type\x18\x0e \x01(\x0e\x32\x0c.Washer_Type\"\x99\x02\n\x05Order\x12\n\n\x02id\x18\x01 \x01(\t\x12\x13\n\x0bwasher_nick\x18\x02 \x01(\t\x12\x15\n\rwasher_avatar\x18\x03 \x01(\t\x12!\n\x0bwasher_type\x18\x04 \x01(\x0e\x32\x0c.Washer_Type\x12\x10\n\x08quantity\x18\x05 \x01(\x05\x12\r\n\x05price\x18\x06 \x01(\x02\x12\x11\n\ttotal_fee\x18\x07 \x01(\x02\x12\x10\n\x08\x64iscount\x18\x08 \x01(\x02\x12\x1d\n\x06status\x18\t \x01(\x0e\x32\r.Order_Status\x12\x12\n\norder_time\x18\n \x01(\x05\x12\x15\n\rallocate_time\x18\x0b \x01(\x05\x12\x13\n\x0b\x66inish_time\x18\x0c \x01(\x05\x12\x10\n\x08pay_time\x18\r \x01(\x05*\xb2\x02\n\x08Protocol\x12\x12\n\x0c\x46INISH_ORDER\x10\xc0\xa9\x07\x12\x12\n\x0c\x43\x41NCEL_ORDER\x10\xc1\xa9\x07\x12\x14\n\x0e\x41LLOCATE_ORDER\x10\xc2\xa9\x07\x12\x16\n\x10PROCESSING_ORDER\x10\xc3\xa9\x07\x12\x14\n\x0eORDER_FEEDBACK\x10\xc4\xa9\x07\x12\x13\n\rHISTORY_ORDER\x10\xc5\xa9\x07\x12\x12\n\x0cORDER_DETAIL\x10\xc6\xa9\x07\x12\x0e\n\x08REGISTER\x10\xd0\xf7\x07\x12\x0b\n\x05LOGIN\x10\xd1\xf7\x07\x12\x16\n\x10REQUEST_AUTHCODE\x10\xd2\xf7\x07\x12\x15\n\x0fVERIFY_AUTHCODE\x10\xd3\xf7\x07\x12\x10\n\nSTART_WORK\x10\xd4\xf7\x07\x12\x14\n\x0e\x46RESH_LOCATION\x10\xd5\xf7\x07\x12\x0f\n\tSTOP_WORK\x10\xd6\xf7\x07\x12\x0c\n\x06LOGOUT\x10\xd7\xf7\x07*\xfb\x04\n\nError_Code\x12\x0b\n\x07SUCCESS\x10\x00\x12\x1c\n\x16\x45RROR_PASSWORD_INVALID\x10\xa0\x8d\x06\x12\x1e\n\x18\x45RROR_PASSWORD_NOT_EQUAL\x10\xa1\x8d\x06\x12\x18\n\x12\x45RROR_WASHER_EXIST\x10\xa2\x8d\x06\x12\x1c\n\x16\x45RROR_AUTHCODE_INVALID\x10\xa3\x8d\x06\x12\x1c\n\x16\x45RROR_AUTHCODE_EXPIRED\x10\xa4\x8d\x06\x12\x19\n\x13\x45RROR_PHONE_INVALID\x10\xa5\x8d\x06\x12\x1c\n\x16\x45RROR_WASHER_NOT_FOUND\x10\xa6\x8d\x06\x12\x1d\n\x17\x45RROR_SIGNATURE_EXPIRED\x10\xa7\x8d\x06\x12\x1d\n\x17\x45RROR_SIGNATURE_INVALID\x10\xa8\x8d\x06\x12\x13\n\rERROR_KICKOUT\x10\xa9\x8d\x06\x12\x18\n\x12\x45RROR_OPEN_FAILURE\x10\xaa\x8d\x06\x12\x18\n\x12\x45RROR_ALREAD_START\x10\xab\x8d\x06\x12\x15\n\x0f\x45RROR_NOT_LOGIN\x10\xac\x8d\x06\x12\x1e\n\x18\x45RROR_PROCESSING_FAILURE\x10\xad\x8d\x06\x12 \n\x1a\x45RROR_FINISH_ORDER_FAILURE\x10\xae\x8d\x06\x12\"\n\x1c\x45RROR_ORDER_FEEDBACK_FAILURE\x10\xaf\x8d\x06\x12\x1a\n\x14\x45RROR_NOT_START_WORK\x10\xb0\x8d\x06\x12\x1d\n\x17\x45RROR_STOP_WORK_FAILURE\x10\xb1\x8d\x06\x12\x1e\n\x18\x45RROR_ORDER_STATUS_WRONG\x10\xb2\x8d\x06\x12\x1b\n\x15\x45RROR_ORDER_NOT_FOUND\x10\xb3\x8d\x06\x12\x17\n\x11\x45RROR_BAD_REQEUST\x10\x84\x8e\x06*(\n\x0bWasher_Type\x12\x0c\n\x08PERSONAL\x10\x01\x12\x0b\n\x07\x43OMPANY\x10\x02*D\n\x08\x43\x61tegory\x12\x12\n\x0e\x43LOTHES_NORMAL\x10\x01\x12\x12\n\x0e\x43LOTHES_JACKET\x10\x02\x12\x10\n\x0cSHOSE_NORMAL\x10\x03*a\n\x0cOrder_Status\x12\x0b\n\x07\x44\x45\x46\x41ULT\x10\x00\x12\x0f\n\x0b\x44ISTRIBUTED\x10\x01\x12\x0e\n\nPROCESSING\x10\x02\x12\n\n\x06\x46INISH\x10\x03\x12\t\n\x05PAYED\x10\x04\x12\x0c\n\x08\x43\x41NCELED\x10\x05')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -51,42 +51,50 @@ _PROTOCOL = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='REGISTER', index=5, number=130000,
+      name='HISTORY_ORDER', index=5, number=120005,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='LOGIN', index=6, number=130001,
+      name='ORDER_DETAIL', index=6, number=120006,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='REQUEST_AUTHCODE', index=7, number=130002,
+      name='REGISTER', index=7, number=130000,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='VERIFY_AUTHCODE', index=8, number=130003,
+      name='LOGIN', index=8, number=130001,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='START_WORK', index=9, number=130004,
+      name='REQUEST_AUTHCODE', index=9, number=130002,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FRESH_LOCATION', index=10, number=130005,
+      name='VERIFY_AUTHCODE', index=10, number=130003,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='STOP_WORK', index=11, number=130006,
+      name='START_WORK', index=11, number=130004,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='LOGOUT', index=12, number=130007,
+      name='FRESH_LOCATION', index=12, number=130005,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='STOP_WORK', index=13, number=130006,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='LOGOUT', index=14, number=130007,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=648,
-  serialized_end=913,
+  serialized_start=694,
+  serialized_end=1000,
 )
 _sym_db.RegisterEnumDescriptor(_PROTOCOL)
 
@@ -174,14 +182,22 @@ _ERROR_CODE = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='ERROR_BAD_REQEUST', index=19, number=100100,
+      name='ERROR_ORDER_STATUS_WRONG', index=19, number=100018,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ERROR_ORDER_NOT_FOUND', index=20, number=100019,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ERROR_BAD_REQEUST', index=21, number=100100,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=916,
-  serialized_end=1490,
+  serialized_start=1003,
+  serialized_end=1638,
 )
 _sym_db.RegisterEnumDescriptor(_ERROR_CODE)
 
@@ -203,8 +219,8 @@ _WASHER_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1492,
-  serialized_end=1532,
+  serialized_start=1640,
+  serialized_end=1680,
 )
 _sym_db.RegisterEnumDescriptor(_WASHER_TYPE)
 
@@ -230,8 +246,8 @@ _CATEGORY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1534,
-  serialized_end=1602,
+  serialized_start=1682,
+  serialized_end=1750,
 )
 _sym_db.RegisterEnumDescriptor(_CATEGORY)
 
@@ -269,8 +285,8 @@ _ORDER_STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1604,
-  serialized_end=1701,
+  serialized_start=1752,
+  serialized_end=1849,
 )
 _sym_db.RegisterEnumDescriptor(_ORDER_STATUS)
 
@@ -280,6 +296,8 @@ CANCEL_ORDER = 120001
 ALLOCATE_ORDER = 120002
 PROCESSING_ORDER = 120003
 ORDER_FEEDBACK = 120004
+HISTORY_ORDER = 120005
+ORDER_DETAIL = 120006
 REGISTER = 130000
 LOGIN = 130001
 REQUEST_AUTHCODE = 130002
@@ -307,6 +325,8 @@ ERROR_FINISH_ORDER_FAILURE = 100014
 ERROR_ORDER_FEEDBACK_FAILURE = 100015
 ERROR_NOT_START_WORK = 100016
 ERROR_STOP_WORK_FAILURE = 100017
+ERROR_ORDER_STATUS_WRONG = 100018
+ERROR_ORDER_NOT_FOUND = 100019
 ERROR_BAD_REQEUST = 100100
 PERSONAL = 1
 COMPANY = 2
@@ -546,64 +566,78 @@ _ORDER = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='washer_type', full_name='Order.washer_type', index=2,
-      number=3, type=14, cpp_type=8, label=1,
+      name='washer_avatar', full_name='Order.washer_avatar', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='washer_type', full_name='Order.washer_type', index=3,
+      number=4, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='quantity', full_name='Order.quantity', index=3,
-      number=4, type=5, cpp_type=1, label=1,
+      name='quantity', full_name='Order.quantity', index=4,
+      number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='price', full_name='Order.price', index=4,
-      number=5, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='total_fee', full_name='Order.total_fee', index=5,
+      name='price', full_name='Order.price', index=5,
       number=6, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='discount', full_name='Order.discount', index=6,
+      name='total_fee', full_name='Order.total_fee', index=6,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='status', full_name='Order.status', index=7,
-      number=8, type=14, cpp_type=8, label=1,
+      name='discount', full_name='Order.discount', index=7,
+      number=8, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='Order.status', index=8,
+      number=9, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='order_time', full_name='Order.order_time', index=8,
-      number=9, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='finish_time', full_name='Order.finish_time', index=9,
+      name='order_time', full_name='Order.order_time', index=9,
       number=10, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pay_time', full_name='Order.pay_time', index=10,
+      name='allocate_time', full_name='Order.allocate_time', index=10,
       number=11, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='finish_time', full_name='Order.finish_time', index=11,
+      number=12, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='pay_time', full_name='Order.pay_time', index=12,
+      number=13, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -621,7 +655,7 @@ _ORDER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=410,
-  serialized_end=645,
+  serialized_end=691,
 )
 
 _WASHER.fields_by_name['type'].enum_type = _WASHER_TYPE

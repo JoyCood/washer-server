@@ -6,6 +6,7 @@ enum HWProtocol {
     ALLOCATE_ORDER     = 120002; //分配订单(当有用户下单时通知到商家)
     PROCESSING_ORDER   = 120003; //清洗
     ORDER_FEEDBACK     = 120004; //商家对订单评分
+    HISTORY_ORDER      = 120005; //历史订单
 
     REGISTER           = 130000; //注册
     LOGIN              = 130001; //登录及断线重连

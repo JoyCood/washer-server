@@ -12,5 +12,7 @@ route = {
     common_pb2.PROCESSING_ORDER: "processing_order",
     common_pb2.ORDER_FEEDBACK: "order_feedback",
     common_pb2.CANCEL_ORDER: "cancel_order",
+    common_pb2.HISTORY_ORDER: "history_order",
+    common_pb2.ORDER_DETAIL: "order_detail",
     common_pb2.LOGOUT: "logout"
 }
